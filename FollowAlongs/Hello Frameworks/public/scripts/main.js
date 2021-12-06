@@ -29,10 +29,12 @@ rhit.main = function () {
 
 	for(const button of buttons) {
 		button.onclick = (event) => {
-			const dataAmount = button.dataset.amount;
-			const dataIsMultiplication = button.dataset.isMultiplication;
+			const dataAmount = parseInt(button.dataset.amount);
+			const dataIsMultiplication = button.dataset.isMultiplication == "true";
 
 			console.log(`Amount: ${dataAmount} isMult: ${dataIsMultiplication}`);
+			console.log(`Amount: ${typeof(dataAmount)} isMult: ${typeof(dataIsMultiplication)}`);
+
 		};
 	}
 

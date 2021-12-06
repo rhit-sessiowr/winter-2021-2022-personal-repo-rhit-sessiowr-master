@@ -13,7 +13,13 @@ var rhit = rhit || {};
 rhit.counter = 0;
 
 /** function and class syntax examples */
-rhit.updateCounter = function () {
+rhit.updateCounter = function (amount, isMult) {
+	if(isMult) {
+		rhit.counter *= amount;
+	} else {
+		rhit.counter += amount;
+	}
+	document.querySelector("#counterText").innerHTML = `Count = ${rhit.counter}`; 
 };
 
 
@@ -34,7 +40,7 @@ rhit.main = function () {
 
 			console.log(`Amount: ${dataAmount} isMult: ${dataIsMultiplication}`);
 			console.log(`Amount: ${typeof(dataAmount)} isMult: ${typeof(dataIsMultiplication)}`);
-
+			rhit.updateCounter(dataAmount, dataIsMultiplication); 
 		};
 	}
 

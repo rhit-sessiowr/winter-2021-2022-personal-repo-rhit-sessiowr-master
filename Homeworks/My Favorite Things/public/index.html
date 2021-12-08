@@ -12,10 +12,28 @@
 
 <body>
   <nav class="navbar navbar-dark fixed-top">
-    <a class="navbar-brand" href="#">App Name</a>
+    <a class="navbar-brand" href="#">Favorite Things</a>
   </nav>
-  <div id="mainPage" class="container page-container">
 
+  <div id="mainPage" class="container page-container">
+    <hr>
+    <div id="favNum" class="h1 font-weight-bold text-left"> Favorite Number:</div>
+    <div id="count" class="display-2 text-center"> 0 </div>
+    <div id="counterButtons" class="row justify-content-center">
+      <div class="col-md-2">
+        <button type="button" data-amount="-1" class="btn btn-block btn-primary"> -1</button>
+      </div>
+
+      <div class="col-md-2">
+        <button type="button" data-amount="0" class="btn btn-block btn-primary">Reset</button>
+      </div>
+      
+      <div class="col-md-2">
+        <button type="button" data-amount="1" class="btn btn-block btn-primary">+1</button>
+      </div>
+    </div>
+    <hr>
+    <div id="favColor" class="h1 font-weight-bold text-left">Favorite Color:</div>
 
   </div>
   <script src="scripts/jquery.min.js"></script>

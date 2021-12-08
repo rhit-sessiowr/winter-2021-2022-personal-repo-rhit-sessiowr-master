@@ -33,6 +33,7 @@ body {
     background-color: #800000;
     color: white;
     text-transform: capitalize;
+    text-align: center;
 }
 #colorButtons {
     text-align: center;

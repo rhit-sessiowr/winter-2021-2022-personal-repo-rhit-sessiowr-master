@@ -8,8 +8,8 @@ body {
 }
 .no-gutters>col, 
 .no-gutters>[class*="col-"] {
-    padding-bottom: 2px;
-    margin: 2px;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 
 

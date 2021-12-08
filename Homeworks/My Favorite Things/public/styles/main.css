@@ -6,7 +6,73 @@ body {
     background-color: #800000;
     color: white;
 }
+.no-gutters>col, 
+.no-gutters>[class*="col-"] {
+    padding-bottom: 2px;
+    margin: 2px;
+}
+
 
 .page-container {
     margin-top: 75px;
 }
+
+#counterButtons {
+    text-align: center;
+}
+#incButton {
+    background-color: #800000;
+    color: white;
+}
+#decButton {
+    background-color: #800000;
+    color: white;
+
+}
+#resetButton {
+    background-color: #800000;
+    color: white;
+    text-transform: capitalize;
+}
+#colorButtons {
+    text-align: center;
+}
+
+#redButton {
+    background-color: red;
+    color: white;
+    text-transform: capitalize;
+
+}
+#greenButton {
+    background-color: green;
+    color: white;
+    text-transform: capitalize;
+
+}
+#blueButton {
+    background-color: blue;
+    color: white;
+    text-transform: capitalize;
+
+}
+#purpButton {
+    background-color: purple;
+    color: white;
+    text-transform: capitalize;
+}
+
+
+#favoriteColorContainer {
+    width: 200px;
+    margin: 20px;
+ }
+  
+ #favoriteColorBox {
+    background-color: #800000;
+    line-height: 100px;
+    text-align: center;
+    color: white;
+ }
+
+ 

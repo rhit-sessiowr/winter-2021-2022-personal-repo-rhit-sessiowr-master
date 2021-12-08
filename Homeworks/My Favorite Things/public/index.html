@@ -18,23 +18,45 @@
   <div id="mainPage" class="container page-container">
     <hr>
     <div id="favNum" class="h1 font-weight-bold text-left"> Favorite Number:</div>
-    <div id="count" class="display-2 text-center"> 0 </div>
+    <div id="count" class="h1 text-center"> 0 </div>
     <div id="counterButtons" class="row justify-content-center">
       <div class="col-md-2">
-        <button type="button" data-amount="-1" class="btn btn-block btn-primary"> -1</button>
+        <button id="decButton" class="btn btn-block"> -1</button>
       </div>
 
       <div class="col-md-2">
-        <button type="button" data-amount="0" class="btn btn-block btn-primary">Reset</button>
+        <button id="resetButton" class="btn btn-block">Reset</button>
       </div>
       
       <div class="col-md-2">
-        <button type="button" data-amount="1" class="btn btn-block btn-primary">+1</button>
+        <button id="incButton" class="btn btn-block">+1</button>
       </div>
     </div>
     <hr>
     <div id="favColor" class="h1 font-weight-bold text-left">Favorite Color:</div>
+      <div id="favoriteColorContainer" class="mx-auto">
+        <div id="favoriteColorBox">
+        #800000
+      </div>
+      </div>
+      <div id="colorButtons" class="row no-gutters justify-content-center">
+        <div class="col-md-2">
+          <button id="blueButton" class="btn btn-block">Blue</button>
+        </div>
+  
+        <div class="col-md-2">
+          <button id="greenButton" class="btn btn-block">Green</button>
+        </div>
+        
+        <div class="col-md-2">
+          <button id="redButton" class="btn btn-block">Red</button>
+        </div>
 
+        <div class="col-md-2">
+          <button id="purpButton" class="btn btn-block">Purple</button>
+        </div>
+      </div>  
+      <hr>
   </div>
   <script src="scripts/jquery.min.js"></script>
   <script src="scripts/popper.js"></script>

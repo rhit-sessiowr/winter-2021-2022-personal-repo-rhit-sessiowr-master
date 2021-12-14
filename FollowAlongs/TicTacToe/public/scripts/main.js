@@ -19,7 +19,6 @@ rhit.PageController = class {
 		for(const square of squares) {
 			square.onclick = (event) => {
 				const buttonIndex = parseInt(square.dataset.buttonIndex);
-				console.log(buttonIndex);
 				this.game.pressedButtonAtIndex(buttonIndex);
 				this.updateView();
 			}
@@ -41,7 +40,7 @@ rhit.PageController = class {
 		squares.forEach((square,index) => {
 			square.innerHTML = this.game.getMarkAtIndex(index);
 		});
-		document.querySelectorAll("#gameStateText").innerHTML = this.game.state;
+		document.querySelector("#gameStateText").innerHTML = this.game.state;
 
 	}
 }
@@ -93,7 +92,30 @@ rhit.Game = class {
 	}
 
 	_checkForGameOver() {
-		
+		if(!this.board.includes(rhit.Game.Mark.NONE)) {
+			this.state = rhit.Game.State.TIE;
+		}
+
+		const lines = [];
+		lines.push(this.board[0] + this.board[1] + this.board[2])
+		lines.push(this.board[3] + this.board[4] + this.board[5])
+		lines.push(this.board[6] + this.board[7] + this.board[8])
+
+		lines.push(this.board[0] + this.board[3] + this.board[6])
+		lines.push(this.board[1] + this.board[4] + this.board[7])
+		lines.push(this.board[2] + this.board[5] + this.board[8])
+
+		lines.push(this.board[0] + this.board[4] + this.board[8])
+		lines.push(this.board[2] + this.board[4] + this.board[6])
+
+		for(const line of lines) {
+			if(line = "XXX") {
+				this.state = rhit.Game.State.X_WIN;
+			} else if (line = "OOO") {
+				this.state = rhit.Game.State.O_WIN;
+			}
+		}
+
 	}
 
 	getMarkAtIndex(Index) {

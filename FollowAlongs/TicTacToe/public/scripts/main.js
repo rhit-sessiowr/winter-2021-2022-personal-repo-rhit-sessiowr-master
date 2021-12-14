@@ -70,16 +70,30 @@ rhit.Game = class {
 		for (let i = 0;  i < 9; i++) {
 			this.board.push(rhit.Game.Mark.NONE);
 		}
-		console.log('this.board = ', this.board);
-		console.log('this.state = ', this.state);
-		//Make instance variables
+		
 
 	}
 
 	pressedButtonAtIndex(Index) {
-		console.log("Clicked ", Index);
-		
+		if(this.state == rhit.Game.State.X_WIN || this.state == rhit.Game.State.O_WIN || this.state == rhit.Game.State.TIE) { 
+			return;
+		}
+		if (this.board[Index] != rhit.Game.Mark.NONE) {
+			return;
+		}
+		if(this.state == rhit.Game.State.X_TURN) {
+			this.board[Index] = rhit.Game.Mark.X;
+			this.state = rhit.Game.State.O_TURN;
+		} else {
+			this.board[Index] = rhit.Game.Mark.O;
+			this.state = rhit.Game.State.X_TURN;
+		}
+		this._checkForGameOver();
 
+	}
+
+	_checkForGameOver() {
+		
 	}
 
 	getMarkAtIndex(Index) {

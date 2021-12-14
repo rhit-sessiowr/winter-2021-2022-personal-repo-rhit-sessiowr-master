@@ -92,6 +92,9 @@ rhit.Game = class {
 	}
 
 	_checkForGameOver() {
+		if(!this.board.includes(rhit.Game.Mark.NONE)) {
+			this.state = rhit.Game.State.TIE;
+		}
 
 		const lines = [];
 		if(!this.board.includes(rhit.Game.Mark.NONE)) {
@@ -109,9 +112,9 @@ rhit.Game = class {
 		lines.push(this.board[2] + this.board[4] + this.board[6])
 
 		for(const line of lines) {
-			if(line = "XXX") {
+			if(line == "XXX") {
 				this.state = rhit.Game.State.X_WIN;
-			} else if (line = "OOO") {
+			} else if (line == "OOO") {
 				this.state = rhit.Game.State.O_WIN;
 			}
 		}

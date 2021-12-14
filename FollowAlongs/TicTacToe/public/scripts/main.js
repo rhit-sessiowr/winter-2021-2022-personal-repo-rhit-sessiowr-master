@@ -14,6 +14,15 @@ var rhit = rhit || {};
 rhit.PageController = class {
 	constructor() {
 		this.game = new rhit.Game();
+
+		const squares = document.querySelectorAll(".square");
+		for(const square of squares) {
+			square.onclick = (event) => {
+				const buttonIndex = parseInt(square.dataset.buttonIndex);
+				console.log(buttonIndex);
+				this.game.pressedButtonAtIndex(buttonIndex);
+			}
+		}
 		//Enable on-click listeners
 	}
 
@@ -53,6 +62,7 @@ rhit.Game = class {
 	}
 
 	pressedButtonAtIndex(Index) {
+		console.log("Clicked ", Index);
 
 	}
 

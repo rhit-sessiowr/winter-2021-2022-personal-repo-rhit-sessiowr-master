@@ -57,11 +57,11 @@ rhit.Game = class {
 	}
 
 	getMarkAtIndex(Index) {
-
+		return this.board[Index];
 	}
 
 	getState() {
-
+		return this.state;
 	}
 }
 

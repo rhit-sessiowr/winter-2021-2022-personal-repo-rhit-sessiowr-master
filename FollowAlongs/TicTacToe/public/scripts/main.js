@@ -92,11 +92,11 @@ rhit.Game = class {
 	}
 
 	_checkForGameOver() {
+
+		const lines = [];
 		if(!this.board.includes(rhit.Game.Mark.NONE)) {
 			this.state = rhit.Game.State.TIE;
 		}
-
-		const lines = [];
 		lines.push(this.board[0] + this.board[1] + this.board[2])
 		lines.push(this.board[3] + this.board[4] + this.board[5])
 		lines.push(this.board[6] + this.board[7] + this.board[8])

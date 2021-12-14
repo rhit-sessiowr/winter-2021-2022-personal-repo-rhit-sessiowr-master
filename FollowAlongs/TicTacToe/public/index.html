@@ -16,8 +16,23 @@
   </nav>
   <div id="mainPage" class=" page-container">
     <h1 id="gameStateText" >X's Turn</h1>
+    
+    <div id="gameBoard" >
+        <div class=" square b-bottom b-right"></div>
+        <div class=" square b-bottom b-left b-right"></div>
+        <div class=" square b-bottom b-left"></div>
+        <div class=" square b-top b-right b-bottom"></div>
+        <div class=" square b-left b-top b-right b-bottom">X</div>
+        <div class=" square b-left b-top b-bottom">X</div>
+        <div class=" square b-top b-right"></div>
+        <div class=" square b-top b-left b-right">X</div>
+        <div class=" square b-left b-top">X</div>
+        <button type="button" class="btn" id="newGameButton">New Game</button>
+    </div>
 
-      <div id="gameBoard" >
+
+      <!-- Flexbox System -->
+      <!-- <div id="gameBoard" >
         <div class="my-row">
           <div class=" square b-bottom b-right">X</div>
           <div class=" square b-bottom b-left b-right">X</div>
@@ -36,7 +51,7 @@
         <div class="my-row">
           <button type="button" class="btn" id="newGameButton">New Game</button>
         </div>
-      </div>
+      </div> -->
 
     <!-- Bootstrap system -->
   <!-- <div class="row justify-content-center">

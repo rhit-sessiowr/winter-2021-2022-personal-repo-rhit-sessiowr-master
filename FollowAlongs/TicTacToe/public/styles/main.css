@@ -48,6 +48,7 @@ body {
     margin-top: 15px;
     color: white;
     margin-left: auto;
+    grid-column: span 3;
 }
 
 .my-row {
@@ -55,6 +56,9 @@ body {
     flex-direction:row;
 }
 #gameBoard {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 33% 33% 33%;
     height: 300px;
     width: 300px;
     /* margin: 20px auto; */

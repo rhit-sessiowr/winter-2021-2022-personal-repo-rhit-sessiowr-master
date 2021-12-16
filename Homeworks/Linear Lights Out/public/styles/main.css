@@ -44,3 +44,20 @@ body {
     text-transform: capitalize;
     
 }
+@media (min-width: 576px) {
+    .rect {
+        font-size: 1.5em;
+    }
+    #newGameButton {
+        font-size: 1.5em;
+    }
+}
+
+@media (min-width: 992px) {
+    .rect {
+        font-size: 2em;
+    }
+    #newGameButton {
+        font-size: 2em;
+    }
+}

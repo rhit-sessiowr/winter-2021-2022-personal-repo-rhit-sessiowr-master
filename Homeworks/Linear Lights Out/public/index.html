@@ -7,15 +7,29 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
   <link rel="stylesheet" href="styles/bootstrap-material-design.min.css">
   <link rel="stylesheet" href="styles/main.css">
-  <title>App Name</title>
+  <title>Linear Lights Out</title>
 </head>
 
 <body>
   <nav class="navbar navbar-dark fixed-top">
-    <a class="navbar-brand" href="#">App Name</a>
+    <a class="navbar-brand" href="#">Linear Lights Out</a>
   </nav>
   <div id="mainPage" class="container page-container">
-
+    <h1 id="gameStateText">Make the buttons match</h1>
+    <div id="gameBoard">
+      <div class="button-row">
+        <button data-index="1" type="button" class="btn rect">&nbsp;</button>
+        <button data-index="2" type="button" class="btn rect">&nbsp;</button>
+        <button data-index="3" type="button" class="btn rect">&nbsp;</button>
+        <button data-index="4" type="button" class="btn rect">&nbsp;</button>
+        <button data-index="5" type="button" class="btn rect">&nbsp;</button>
+        <button data-index="6" type="button" class="btn rect">&nbsp;</button>
+        <button data-index="7" type="button" class="btn rect">&nbsp;</button>
+      </div>
+      <div class="button-row">
+        <button type="button" class="btn" id="newGameButton">New Game</button>
+      </div>
+    </div>
 
   </div>
   <script src="scripts/jquery.min.js"></script>

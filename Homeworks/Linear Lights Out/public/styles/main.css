@@ -25,7 +25,7 @@ body {
 }
 
 .rect {
-    background-color: #800000;
+    background-color: gold;
     margin-left: 5px;
     margin-right: 5px;
     color: white;
@@ -33,7 +33,7 @@ body {
     text-align: center;
     font-size: 40px;
     line-height: 80px;
-    width: 60px;
+    width: 70px;
     font-weight: 500;
 }
 
@@ -52,6 +52,7 @@ body {
         font-size: 1.5em;
     }
 }
+
 
 @media (min-width: 992px) {
     .rect {

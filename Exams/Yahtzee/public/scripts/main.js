@@ -5,13 +5,46 @@ var rhit = rhit || {};
 
 
 
-rhit.ClassName = class {
+rhit.YahtzeeController = class {
 	constructor() {
+		this.game = new rhit.YahtzeeRound();
+		document.querySelector("#rollButton").onclick = (event) => {
+			this.game.roll();
+			this.updateView();
+		}
+		document.querySelector("#newButton").onclick = (event) => {
+			this.game = new rhit.YahtzeeRound();
+			this.updateView();
+		}
+		const diceElements = document.querySelectorAll(".die");
+		diceElements.forEach((dieImage, index) => {
+			dieImage.onclick = (event) => {
+				this.game.pressedDieAtIndex(index);
+				this.updateView();
+			}
+		})
 
+
+
+		this.updateView(); 
 	}
 
-	methodName() {
+	updateView() {
+		document.querySelector("#gameStateText").innerHTML = this.game.roundState;
+		const diceElements = document.querySelectorAll(".die");
+		console.log(diceElements);
+		diceElements.forEach((dieImage, index) => {
+			this.game.getDieStateAtIndex(index);
 
+			dieImage.src = `images/die${this.game.getDieValueAtIndex(index)}${this.game.getDieStateAtIndex(index)}.jpg`;
+		})
+
+
+		if(this.game.roundState == rhit.YahtzeeRound.RoundState.ROUND_COMPLETE) {
+			document.querySelector("#rollCol").style = "display: none;"
+		} else{
+			document.querySelector("#rollCol").style = "display: block;"
+		}
 	}
 }
 
@@ -147,6 +180,7 @@ rhit.YahtzeeRound = class {
 /** function and class syntax examples */
 rhit.main = function () {
 	console.log("Ready");
+	new rhit.YahtzeeController();
 };
 
 rhit.main();

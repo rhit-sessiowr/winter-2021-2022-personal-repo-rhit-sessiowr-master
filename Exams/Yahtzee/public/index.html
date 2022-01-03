@@ -16,32 +16,32 @@
   </nav>
   <div id="mainPage" class="container page-container">
 
-   <h1 id="gameStateText" class="text-center">You have 1 roll left.</h1>
+   <h1 id="gameStateText" class="text-center"></h1>
 
     <div id="diceRow" class="row no-gutters">
       <div class="col">
-        <img src="Images/die1R.jpg" class="img-fluid" alt="Die"> 
+        <img src="Images/die1R.jpg" class="die img-fluid" alt="Die"> 
       </div>
       <div class="col">
-        <img src="Images/die1R.jpg" class="img-fluid" alt="Die"> 
+        <img src="Images/die1R.jpg" class="die img-fluid" alt="Die"> 
       </div>
       <div class="col">
-        <img src="Images/die1R.jpg" class="img-fluid" alt="Die"> 
+        <img src="Images/die1R.jpg" class="die img-fluid" alt="Die"> 
       </div>
       <div class="col">
-        <img src="Images/die1R.jpg" class="img-fluid" alt="Die"> 
+        <img src="Images/die1R.jpg" class="die img-fluid" alt="Die"> 
       </div>
       <div class="col">
-        <img src="Images/die1R.jpg" class="img-fluid" alt="Die"> 
+        <img src="Images/die1R.jpg" class="die img-fluid" alt="Die"> 
       </div>
     </div>
 
     <div id="buttonRow" class="row justify-content-center">
-      <div class="col-12 col-sm-6 col-md-4">
-        <button type="button" class="btn btn-outline-primary btn-block">Roll</button>
+      <div style="display: none;" id="rollCol" class="col-12 col-sm-6 col-md-4">
+        <button type="button" id="rollButton" class="btn btn-outline-primary btn-block">Roll</button>
       </div>
       <div class="col-12 col-sm-6 col-md-4">
-        <button type="button" class="btn btn-outline-primary btn-block">New Round</button>
+        <button type="button" id="newButton" class="btn btn-outline-primary btn-block">New Round</button>
 
       </div>
 

@@ -7,15 +7,45 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
   <link rel="stylesheet" href="styles/bootstrap-material-design.min.css">
   <link rel="stylesheet" href="styles/main.css">
-  <title>App Name</title>
+  <title>Yahtzee Dice</title>
 </head>
 
 <body>
   <nav class="navbar navbar-dark fixed-top">
-    <a class="navbar-brand" href="#">App Name</a>
+    <a class="navbar-brand" href="#">Yahtzee Dice</a>
   </nav>
   <div id="mainPage" class="container page-container">
 
+   <h1 id="gameStateText" class="text-center">You have 1 roll left.</h1>
+
+    <div id="diceRow" class="row no-gutters">
+      <div class="col">
+        <img src="Images/die1R.jpg" class="img-fluid" alt="Die"> 
+      </div>
+      <div class="col">
+        <img src="Images/die1R.jpg" class="img-fluid" alt="Die"> 
+      </div>
+      <div class="col">
+        <img src="Images/die1R.jpg" class="img-fluid" alt="Die"> 
+      </div>
+      <div class="col">
+        <img src="Images/die1R.jpg" class="img-fluid" alt="Die"> 
+      </div>
+      <div class="col">
+        <img src="Images/die1R.jpg" class="img-fluid" alt="Die"> 
+      </div>
+    </div>
+
+    <div id="buttonRow" class="row justify-content-center">
+      <div class="col-12 col-sm-6 col-md-4">
+        <button type="button" class="btn btn-outline-primary btn-block">Roll</button>
+      </div>
+      <div class="col-12 col-sm-6 col-md-4">
+        <button type="button" class="btn btn-outline-primary btn-block">New Round</button>
+
+      </div>
+
+    </div>
 
   </div>
   <script src="scripts/jquery.min.js"></script>

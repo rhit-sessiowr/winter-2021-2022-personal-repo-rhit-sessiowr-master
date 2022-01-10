@@ -7,14 +7,63 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
   <link rel="stylesheet" href="styles/bootstrap-material-design.min.css">
   <link rel="stylesheet" href="styles/main.css">
-  <title>App Name</title>
+  <title>Can't Stop</title>
 </head>
 
 <body>
   <nav class="navbar navbar-dark fixed-top">
-    <a class="navbar-brand" href="#">App Name</a>
+    <a class="navbar-brand" href="#">Can't Stop</a>
   </nav>
   <div id="mainPage" class="container page-container">
+    <div class="row justify-content-between">
+      <div class="col-6 card">
+        <div class="h2 card-header">
+          Player 1
+        </div>
+        <div class="card-body" id="player1Body">
+          Total: 0<br>Current Round: 4
+        </div>
+
+      </div>
+
+      <div class="col-6 card">
+        <div class="h2 card-header">
+          Player 2
+        </div>
+        <div class="card-body" id="player2Body">
+          Total: 0<br>Current Round: 4
+        </div>
+      </div>
+    </div>
+
+    <div class="row no-gutters justify-content-center" id="diceRow">
+      <div class="col text-center">
+        <img src="Images/die1.jpg" class="die img-fluid" alt="Die">
+      </div>
+
+      <div class="col text-center">
+        <img src="Images/die1.jpg" class="die img-fluid" alt="Die">
+      </div>
+
+      <div class="col text-center">
+        <img src="Images/die1.jpg" class="die img-fluid" alt="Die">
+      </div>
+
+    </div>
+
+    <div class="row justify-content-center" id="buttonRow">
+      <div style="display: none;" id="bustCol" class="col-8 col-sm-4">
+        <button type="button" id="bustButton" class="btn btn-outline-primary btn-block">Bust! Next Player</button>
+      </div>
+
+      <div id="keepCol" class="col-8 col-sm-4">
+        <button type="button" id="keepButton" class="btn btn-outline-primary btn-block">Keep Rolling</button>
+      </div>
+
+      <div id="stopCol" class="col-8 col-sm-4">
+        <button type="button" id="stopButton" class="btn btn-outline-primary btn-block">Stop Rolling</button>
+      </div>
+    </div>
 
 
   </div>

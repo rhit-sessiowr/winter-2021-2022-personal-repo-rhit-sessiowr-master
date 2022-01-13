@@ -34,11 +34,20 @@
         <h5 class="modal-title">Add Movie Quote</h5>
       </div>
       <div class="modal-body">
-        ... form goes here ...
-      </div>
+          <div class="form-group bmd-form-group"> <!-- left unspecified, .bmd-form-group will be automatically added (inspect the code) -->
+            <label for="inputQuote" class="bmd-label-floating">Quote</label>
+            <input type="text" class="form-control" id="inputQuote">
+          </div>
+          <div class="form-group bmd-form-group"> <!-- manually specified --> 
+            <label for="inputMovie" class="bmd-label-floating">Movie</label>
+            <input type="text" class="form-control" id="inputMovie">
+            <span class="bmd-help">What movie is this quote from?</span>
+
+          </div>
+        </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">CANCEL</button>
-        <button type="button" class="btn btn-primary">CREATE</button>
+        <button id="submitAddQuote" type="button" class="btn btn-primary">CREATE</button>
       </div>
     </div>
   </div>

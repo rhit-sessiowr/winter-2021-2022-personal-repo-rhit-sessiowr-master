@@ -34,14 +34,18 @@ rhit.main = function () {
 
 	
 	//Temp code for read and add
-	const ref = firebase.firestore().collection("MovieQuotes");
-	ref.onSnapshot((querySnapshot) => {
-		console.log("snapshot gotten");
-		querySnapshot.forEach((doc) => {
-			console.log(doc.data());
-		});
-	});
+	// const ref = firebase.firestore().collection("MovieQuotes");
+	// ref.onSnapshot((querySnapshot) => {
+	// 	querySnapshot.forEach((doc) => {
+	// 		console.log(doc.data());
+	// 	});
+	// });
 
+	// ref.add({
+	// 	quote: "my first test",
+	// 	movie: "my first movie"
+
+	// });
 
 
 };

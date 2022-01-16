@@ -24,3 +24,15 @@ body {
     transform: translateY(2px);
     opacity: 0.8;
 }
+
+.card {
+    margin: 10px 0;
+}
+
+#listPage .card-title,
+#listPage .card-subtitle {
+    white-space: nowrap;
+    overflow: hidden;
+    display: block;
+    text-overflow: ellipsis;    
+}

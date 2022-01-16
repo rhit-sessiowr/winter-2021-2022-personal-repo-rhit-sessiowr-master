@@ -75,7 +75,11 @@ rhit.ListPageController = class {
 			newCard.onclick = (event) => {
 				console.log("clicked a card")
 				rhit.storage.setMovieQuoteId(mq.id);
+				window.location.href = "/moviequote.html"
 			}
+
+
+			
 
 
 
@@ -169,7 +173,7 @@ rhit.ListPageController = class {
 	}
 	return mqId;
    }
-   rhit.storage.setMovieQuoteId = function() {
+   rhit.storage.setMovieQuoteId = function(movieQuoteId) {
 	sessionStorage.setItem(rhit.storage.MOVIEQUOTE_ID_KEY, movieQuoteId);
 
    }
@@ -187,6 +191,10 @@ rhit.main = function () {
 
 	if(document.querySelector("#detailPage")) {
 		console.log("You are on the detail page.");
+
+
+		const movieQuoteId = rhit.storage.getMovieQuoteId();
+		console.log(`Detail page for ${movieQuoteId}`);
 	}
 
 

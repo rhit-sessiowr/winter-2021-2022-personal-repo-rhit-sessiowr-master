@@ -75,8 +75,8 @@ rhit.ListPageController = class {
 
 			newCard.onclick = (event) => {
 				console.log("clicked a card")
-				rhit.storage.setMovieQuoteId(mq.id);
-				window.location.href = "/moviequote.html"
+				// rhit.storage.setMovieQuoteId(mq.id);
+				window.location.href = `/moviequote.html?id=${mq.id}`
 			}
 
 
@@ -189,7 +189,7 @@ rhit.FbSingleQuoteManager = class {
 			if (doc.exists) {
 				console.log("Document data:", doc.data());
 				this._documentSnapshot = doc;
-				changeListener();	
+				changeListener();
 			} else {
 				// doc.data() will be undefined in this case
 				console.log("No such document!");
@@ -214,19 +214,19 @@ rhit.FbSingleQuoteManager = class {
 
 
 
-rhit.storage = rhit.storage || {};
-rhit.storage.MOVIEQUOTE_ID_KEY = "movieQuoteId";
-rhit.storage.getMovieQuoteId = function () {
-	const mqId = sessionStorage.getItem(rhit.storage.MOVIEQUOTE_ID_KEY);
-	if (!mqId) {
-		console.log("no movie quote id in session storage");
-	}
-	return mqId;
-}
-rhit.storage.setMovieQuoteId = function (movieQuoteId) {
-	sessionStorage.setItem(rhit.storage.MOVIEQUOTE_ID_KEY, movieQuoteId);
+// rhit.storage = rhit.storage || {};
+// rhit.storage.MOVIEQUOTE_ID_KEY = "movieQuoteId";
+// rhit.storage.getMovieQuoteId = function () {
+// 	const mqId = sessionStorage.getItem(rhit.storage.MOVIEQUOTE_ID_KEY);
+// 	if (!mqId) {
+// 		console.log("no movie quote id in session storage");
+// 	}
+// 	return mqId;
+// }
+// rhit.storage.setMovieQuoteId = function (movieQuoteId) {
+// 	sessionStorage.setItem(rhit.storage.MOVIEQUOTE_ID_KEY, movieQuoteId);
 
-}
+// }
 
 /* Main */
 /** function and class syntax examples */
@@ -242,7 +242,11 @@ rhit.main = function () {
 	if (document.querySelector("#detailPage")) {
 		console.log("You are on the detail page.");
 
-		const movieQuoteId = rhit.storage.getMovieQuoteId();
+		// const movieQuoteId = rhit.storage.getMovieQuoteId();
+		const queryString = window.location.search;
+		const urlParams = new URLSearchParams(queryString);
+		const movieQuoteId = urlParams.get("id");
+
 		console.log(`Detail page for ${movieQuoteId}`);
 		if (!movieQuoteId) {
 			console.log("error! missing movie quote id!");

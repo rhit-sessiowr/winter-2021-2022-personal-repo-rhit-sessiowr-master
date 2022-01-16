@@ -37,8 +37,13 @@ rhit.ListPageController = class {
 		$("#addQuoteModal").on("shown.bs.modal", (event) => {
 			document.querySelector("#inputQuote").focus();
 		})
+
+		rhit.fbMovieQuotesManager.beginListening(this.updateList.bind(this));
 	}
-	updateList() {}
+	updateList() {
+		console.log("Update List!");
+		console.log(`Num Quotes = ${rhit.fbMovieQuotesManager.length}`);
+	}
    }   
 
    rhit.MovieQuote = class {
@@ -72,12 +77,36 @@ rhit.ListPageController = class {
 			    console.error("Error adding document: ", error);
 			});
 	   }
-	beginListening(changeListener) {    }
+	beginListening(changeListener) {  
+		this._ref.onSnapshot((querySnapshot) => {
+
+			this._documentSnapshots = querySnapshot.docs;
+
+        	// querySnapshot.forEach((doc) => {
+			// 	console.log(doc.data());
+       		// });
+
+			changeListener();
+
+
+    	});
+	}
 	stopListening() {    }
 	// update(id, quote, movie) {    }
 	// delete(id) { }
-	get length() {    }
-	getMovieQuoteAtIndex(index) {    }
+	get length() { 
+		return this._documentSnapshots.length;
+	   }
+	getMovieQuoteAtIndex(index) {  
+		const docSnapshot = this._documentSnapshots[index];
+		const mq = new rhit.MovieQuote(
+			docSnapshot.id,
+			docSnapshot.get(rhit.FB_KEY_QUOTE),
+			docSnapshot.get(rhit.FB_KEY_MOVIE)
+		);
+
+		return mq;
+	  }
    }
    
 /* Main */

@@ -59,6 +59,7 @@ rhit.ListPageController = class {
 	constructor() {
 	  this._documentSnapshots = [];
 	  this._ref = firebase.firestore().collection(rhit.FB_COLLECTION_MOVIEQUOTES);
+	  this._unsubscribe = null;
 	}
 	add(quote, movie) { 
 		console.log(`quote ${quote}`);
@@ -78,7 +79,7 @@ rhit.ListPageController = class {
 			});
 	   }
 	beginListening(changeListener) {  
-		this._ref.onSnapshot((querySnapshot) => {
+		this._unsubscribe = this._ref.onSnapshot((querySnapshot) => {
 
 			this._documentSnapshots = querySnapshot.docs;
 
@@ -91,7 +92,9 @@ rhit.ListPageController = class {
 
     	});
 	}
-	stopListening() {    }
+	stopListening() { 
+		this._unsubscribe();
+	   }
 	// update(id, quote, movie) {    }
 	// delete(id) { }
 	get length() { 

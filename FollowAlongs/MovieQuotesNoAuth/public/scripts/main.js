@@ -3,8 +3,9 @@
  * Provides the JavaScript interactions for all pages.
  *
  * @author 
- * PUT_YOUR_NAME_HERE
+ * Will Sessions
  */
+
 
 /** namespace. */
 var rhit = rhit || {};
@@ -14,6 +15,16 @@ rhit.FB_KEY_QUOTE = "quote";
 rhit.FB_KEY_MOVIE = "movie";
 rhit.FB_KEY_LAST_TOUCHED = "lastTouched";
 rhit.fbMovieQuotesManager = null;
+
+
+//From: https://stackoverflow.com/questions/494143/creating-a-new-dom-element-from-an-html-string-using-built-in-dom-methods-or-pro/35385518#35385518
+function htmlToElement(html) {
+    var template = document.createElement('template');
+    html = html.trim(); 
+    template.innerHTML = html;
+    return template.content.firstChild;
+}
+
 
 rhit.ListPageController = class {
 	constructor() {
@@ -43,6 +54,16 @@ rhit.ListPageController = class {
 	updateList() {
 		console.log("Update List!");
 		console.log(`Num Quotes = ${rhit.fbMovieQuotesManager.length}`);
+
+		const newList = htmlToElement('<div id="quoteListContainer">Works!</div>');
+
+
+
+		const oldList = document.querySelector("#quoteListContainer");
+		oldList.removeAttribute("id");
+		oldList.hidden = true;
+
+		oldList.parentElement.appendChild(newList);
 	}
    }   
 

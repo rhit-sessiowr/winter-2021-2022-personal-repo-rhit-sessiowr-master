@@ -27,6 +27,16 @@ rhit.ListPageController = class {
 
 
 		})
+
+		$("#addQuoteModal").on("show.bs.modal", (event) => {
+			document.querySelector("#inputQuote").value = "";
+			document.querySelector("#inputMovie").value = "";
+			
+		})
+
+		$("#addQuoteModal").on("shown.bs.modal", (event) => {
+			document.querySelector("#inputQuote").focus();
+		})
 	}
 	updateList() {}
    }   

@@ -14,6 +14,7 @@ rhit.FB_KEY_IMAGEURL = "imageUrl";
 rhit.FB_KEY_CAPTION = "caption";
 rhit.FB_KEY_LAST_TOUCHED = "lastTouched";
 rhit.fbPhotosManager = null;
+rhit.fbSinglePhotoManager = null;
 
 //From: https://stackoverflow.com/questions/494143/creating-a-new-dom-element-from-an-html-string-using-built-in-dom-methods-or-pro/35385518#35385518
 function htmlToElement(html) {
@@ -57,9 +58,7 @@ rhit.ListPageController = class {
 			const photo = rhit.fbPhotosManager.getPhotoAtIndex(i);
 			const newPin = this._createPin(photo);
 			newPin.onclick = (event) => {
-
-				
-				window.location.href = "/photo.html"
+				window.location.href = `/photo.html?id=${photo.id}`
 			}
 			newList.appendChild(newPin);
 		}
@@ -150,6 +149,94 @@ rhit.FbPhotosManager = class {
 	}
 }
 
+rhit.DetailPageController = class {
+	constructor() {
+
+		document.querySelector("#submitUpdatePhoto").addEventListener("click", (event) => {
+			const caption = document.querySelector("#inputCaption").value;
+			rhit.fbSinglePhotoManager.update(caption);
+		})
+
+		$("#editPhotoModal").on("show.bs.modal", (event) => {
+			document.querySelector("#inputCaption").value = rhit.fbSinglePhotoManager.caption;
+		})
+		$("#editPhotoModal").on("shown.bs.modal", (event) => {
+			document.querySelector("#inputCaption").focus();
+		})
+
+		document.querySelector("#submitDeletePhoto").addEventListener("click", (event) => {
+			rhit.fbSinglePhotoManager.delete().then(() => {
+				console.log("Document successfully deleted!");
+				window.location.href = "/";
+			}).catch((error) => {
+				console.error("Error removing document: ", error);
+			});
+		})
+
+		rhit.fbSinglePhotoManager.beginListening(this.updateView.bind(this));
+	}
+
+	updateView() {
+		console.log("update the view");
+		document.querySelector("#photoUrl").src = rhit.fbSinglePhotoManager.imageUrl;
+		document.querySelector("#photoCaption").innerHTML = rhit.fbSinglePhotoManager.caption;
+	}
+}
+
+rhit.FbSinglePhotoManager = class {
+	constructor(photoId) {
+		this._documentSnapshot = {};
+		this._unsubscribe = null;
+		this._ref = firebase.firestore().collection(rhit.FB_COLLECTION_PHOTOBUCKET).doc(photoId);
+		console.log(`listening to ${this._ref.path}`);
+	}
+
+	beginListening(changeListener) {
+		this._unsubscribe = this._ref.onSnapshot((doc) => {
+			if (doc.exists) {
+				console.log("Document data:", doc.data());
+				this._documentSnapshot = doc;
+				changeListener();
+			} else {
+				// doc.data() will be undefined in this case
+				console.log("No such document!");
+			}
+		})
+
+	}
+
+	stopListening() {
+		this._unsubscribe();
+	}
+
+	update(caption) {
+		this._ref.update({
+			[rhit.FB_KEY_CAPTION]: caption,
+			[rhit.FB_KEY_LAST_TOUCHED]: firebase.firestore.Timestamp.now(),
+			
+		})
+		.then(() => {
+			console.log("Document successfully updated!");
+		})
+		.catch((error) => {
+			console.error("Error updating document: ", error);
+		});
+	}
+
+	delete() {
+		return this._ref.delete();
+	}
+
+	get caption() {
+		return this._documentSnapshot.get(rhit.FB_KEY_CAPTION);
+	}
+
+	get imageUrl() {
+		return this._documentSnapshot.get(rhit.FB_KEY_IMAGEURL);
+	}
+
+}
+
 /* Main */
 /** function and class syntax examples */
 rhit.main = function () {
@@ -163,6 +250,16 @@ rhit.main = function () {
 
 	if(document.querySelector("#detailPage")) {
 		console.log("This is the detail page.");
+
+		const queryString = window.location.search;
+		const urlParams = new URLSearchParams(queryString)
+		const photoId = urlParams.get("id");
+		if(!photoId) {
+			window.location.href = "/"
+		}
+
+		rhit.fbSinglePhotoManager = new rhit.FbSinglePhotoManager(photoId);
+		new rhit.DetailPageController();
 
 	}
 

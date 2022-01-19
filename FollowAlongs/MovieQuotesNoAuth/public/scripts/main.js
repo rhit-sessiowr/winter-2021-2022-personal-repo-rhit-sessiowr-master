@@ -78,22 +78,11 @@ rhit.ListPageController = class {
 				// rhit.storage.setMovieQuoteId(mq.id);
 				window.location.href = `/moviequote.html?id=${mq.id}`
 			}
-
-
-
-
-
-
 			newList.appendChild(newCard);
 		}
-
-
-
-
 		const oldList = document.querySelector("#quoteListContainer");
 		oldList.removeAttribute("id");
 		oldList.hidden = true;
-
 		oldList.parentElement.appendChild(newList);
 	}
 }

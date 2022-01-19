@@ -47,10 +47,34 @@ rhit.ListPageController = class {
 		rhit.fbPhotosManager.beginListening(this.updateList.bind(this));
 	}
 
+
+	
 	
 
 	updateList() {
+		const newList = htmlToElement('<div id="photoContainer"></div>');
+		for(let i = 0; i < rhit.fbPhotosManager.length; i++) {
+			const photo = rhit.fbPhotosManager.getPhotoAtIndex(i);
+			const newPin = this._createPin(photo);
+			newList.appendChild(newPin);
+		}
 
+
+		const oldList = document.querySelector("#photoContainer");
+		oldList.removeAttribute("id");
+		oldList.hidden = true;
+
+		oldList.parentElement.appendChild(newList);
+
+
+	}
+
+	_createPin(photo) {
+		return htmlToElement(`<div class="pin"><img
+		src="${photo.imageUrl}" class="img-fluid"
+		alt="${photo.caption}">
+	  <p class="caption">${photo.caption}</p>
+	</div>`)
 	}
 }
 
@@ -115,7 +139,7 @@ rhit.FbPhotosManager = class {
 	getPhotoAtIndex(index) {
 		const docSnapshot  = this._documentSnapshots[index];
 		const photo = new rhit.Photo(
-			docSnapshot.id, docSnapshot.get(FB_KEY_IMAGEURL), docSnapshot.get(FB_KEY_CAPTION)
+			docSnapshot.id, docSnapshot.get(rhit.FB_KEY_IMAGEURL), docSnapshot.get(rhit.FB_KEY_CAPTION)
 		)
 		return photo;
 	}

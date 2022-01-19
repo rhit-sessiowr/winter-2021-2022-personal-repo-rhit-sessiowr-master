@@ -34,13 +34,13 @@ body {
 }
 
 
-#columns {
+#photoContainer {
     column-count: 3;
     column-gap: 5px;
 }
 
 @media (min-width: 992px) {
-    #columns {
+    #photoContainer {
         column-count: 4;
         column-gap: 10px;
     }

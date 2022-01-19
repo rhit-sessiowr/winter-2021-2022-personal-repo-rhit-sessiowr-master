@@ -11,6 +11,29 @@ body {
     margin-top: 75px;
 }
 
+#fab {
+    background: #800000;
+    color: white;
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    z-index: 999;
+}
+
+#fab:active {
+    transform: translateY(2px);
+    opacity: 0.8;
+}
+
+#cancelButton {
+    color: #800000;
+}
+
+#submitAddPhoto {
+    color: #800000;
+}
+
+
 #columns {
     column-count: 3;
     column-gap: 5px;

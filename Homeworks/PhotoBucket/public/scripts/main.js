@@ -56,6 +56,11 @@ rhit.ListPageController = class {
 		for(let i = 0; i < rhit.fbPhotosManager.length; i++) {
 			const photo = rhit.fbPhotosManager.getPhotoAtIndex(i);
 			const newPin = this._createPin(photo);
+			newPin.onclick = (event) => {
+
+				
+				window.location.href = "/photo.html"
+			}
 			newList.appendChild(newPin);
 		}
 

@@ -25,9 +25,6 @@ rhit.main = function () {
 			console.log("phone Number :>> ", phoneNumber);
 			console.log("is Anonymous :>> ", isAnonymous);
 
-
-
-
 		} else {
 			console.log("no user signed in");
 			// User is signed out

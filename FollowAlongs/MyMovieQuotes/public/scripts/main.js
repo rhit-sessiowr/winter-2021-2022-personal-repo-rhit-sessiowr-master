@@ -280,7 +280,27 @@ rhit.FbAuthManager = class {
 			changeListener();
 		});
 	}
-	signIn() {}
+	signIn() {
+		Rosefire.signIn("69ad927d-e2d8-4e66-b726-d6bc930ad5c8", (err, rfUser) => {
+			if (err) {
+			  console.log("Rosefire error!", err);
+			  return;
+			}
+			console.log("Rosefire success!", rfUser);
+			firebase.auth().signInWithCustomToken(rfUser.token).catch((error) => {
+				// Handle Errors here.
+				var errorCode = error.code;
+				var errorMessage = error.message;
+				if (errorCode === 'auth/invalid-custom-token') {
+				  alert('The token you provided is not valid.');
+				} else {
+				  console.error("custom auth error: ",errorCode, errorMessage);
+				}
+			  });
+			
+		  });
+
+	}
 	signOut() {
 		firebase.auth().signOut().catch((error) => {
 			// An error happened.

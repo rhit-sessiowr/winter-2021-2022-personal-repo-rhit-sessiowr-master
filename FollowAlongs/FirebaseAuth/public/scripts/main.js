@@ -10,9 +10,24 @@ rhit.main = function () {
 		if (user) {
 		  // User is signed in, see docs for a list of available properties
 		  // https://firebase.google.com/docs/reference/js/firebase.User
-		  var uid = user.uid;
+		  const uid = user.uid;
+		  const displayName = user.displayName;
+		  const email = user.email;
+		  const photoURL = user.photoURL;
+		  const phoneNumber = user.phoneNumber;
+		  const isAnonymous = user.isAnonymous;
+
 		  // ...
 		  console.log("user is signed in: ", uid);
+		  console.log("displayName :>> ", displayName);
+		  console.log("email :>> ", email);
+		  console.log("photoURL :>> ", photoURL);
+		  console.log("phone Number :>> ", phoneNumber);
+		  console.log("is Anonymous :>> ", isAnonymous);
+
+
+
+
 		} else {
 			console.log("no user signed in");
 		  // User is signed out
@@ -75,6 +90,22 @@ rhit.main = function () {
 			});
 
 	};
+	document.querySelector("#anonymousAuthButton").onclick = (event) => {
+		console.log("yeeerrrrrrrr");
+		firebase.auth().signInAnonymously().catch(function(error) {
+			// Handle Errors here.
+			var errorCode = error.code;
+			var errorMessage = error.message;
+			console.log("anonymous auth error: ", errorCode, errorMessage);
+
+		  
+			if (errorCode === 'auth/operation-not-allowed') {
+			  alert('You must enable Anonymous auth in the Firebase Console.');
+			} else {
+			  console.error(error);
+			}
+		  });
+	}
 
 
 

@@ -8,32 +8,32 @@ rhit.main = function () {
 
 	firebase.auth().onAuthStateChanged((user) => {
 		if (user) {
-		  // User is signed in, see docs for a list of available properties
-		  // https://firebase.google.com/docs/reference/js/firebase.User
-		  const uid = user.uid;
-		  const displayName = user.displayName;
-		  const email = user.email;
-		  const photoURL = user.photoURL;
-		  const phoneNumber = user.phoneNumber;
-		  const isAnonymous = user.isAnonymous;
+			// User is signed in, see docs for a list of available properties
+			// https://firebase.google.com/docs/reference/js/firebase.User
+			const uid = user.uid;
+			const displayName = user.displayName;
+			const email = user.email;
+			const photoURL = user.photoURL;
+			const phoneNumber = user.phoneNumber;
+			const isAnonymous = user.isAnonymous;
 
-		  // ...
-		  console.log("user is signed in: ", uid);
-		  console.log("displayName :>> ", displayName);
-		  console.log("email :>> ", email);
-		  console.log("photoURL :>> ", photoURL);
-		  console.log("phone Number :>> ", phoneNumber);
-		  console.log("is Anonymous :>> ", isAnonymous);
+			// ...
+			console.log("user is signed in: ", uid);
+			console.log("displayName :>> ", displayName);
+			console.log("email :>> ", email);
+			console.log("photoURL :>> ", photoURL);
+			console.log("phone Number :>> ", phoneNumber);
+			console.log("is Anonymous :>> ", isAnonymous);
 
 
 
 
 		} else {
 			console.log("no user signed in");
-		  // User is signed out
-		  // ...
+			// User is signed out
+			// ...
 		}
-	  });
+	});
 
 	const inputEmailEl = document.querySelector("#inputEmail");
 	const inputPasswordEl = document.querySelector("#inputPassword");
@@ -45,10 +45,10 @@ rhit.main = function () {
 		firebase.auth().signOut().then(() => {
 			// Sign-out successful.
 			console.log("You are now signed out");
-		  }).catch((error) => {
+		}).catch((error) => {
 			// An error happened.
 			console.log("sign out error");
-		  });
+		});
 
 	};
 	document.querySelector("#createAccountButton").onclick = (event) => {
@@ -92,23 +92,43 @@ rhit.main = function () {
 	};
 	document.querySelector("#anonymousAuthButton").onclick = (event) => {
 		console.log("yeeerrrrrrrr");
-		firebase.auth().signInAnonymously().catch(function(error) {
+		firebase.auth().signInAnonymously().catch(function (error) {
 			// Handle Errors here.
 			var errorCode = error.code;
 			var errorMessage = error.message;
 			console.log("anonymous auth error: ", errorCode, errorMessage);
 
-		  
+
 			if (errorCode === 'auth/operation-not-allowed') {
-			  alert('You must enable Anonymous auth in the Firebase Console.');
+				alert('You must enable Anonymous auth in the Firebase Console.');
 			} else {
-			  console.error(error);
+				console.error(error);
 			}
-		  });
+		});
 	}
 
 
+	rhit.startFirebaseUI();
+
 
 };
+rhit.startFirebaseUI = function() {
+	 // FirebaseUI config.
+	 var uiConfig = {
+        signInSuccessUrl: '/',
+        signInOptions: [
+          // Leave the lines as is for the providers you want to offer your users.
+          firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+          firebase.auth.EmailAuthProvider.PROVIDER_ID,
+          firebase.auth.PhoneAuthProvider.PROVIDER_ID,
+          firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID
+        ],
+      };
+
+      // Initialize the FirebaseUI Widget using Firebase.
+      const ui = new firebaseui.auth.AuthUI(firebase.auth());
+      // The start method will wait until the DOM is loaded.
+      ui.start('#firebaseui-auth-container', uiConfig);
+}
 
 rhit.main();

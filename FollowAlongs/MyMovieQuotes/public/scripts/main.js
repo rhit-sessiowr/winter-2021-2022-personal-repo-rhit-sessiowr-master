@@ -264,20 +264,35 @@ rhit.FbSingleQuoteManager = class {
 
 rhit.LoginPageController = class {
 	constructor() {
-		console.log("You have made the login page controller");
+		document.querySelector("#roseFireButton").onclick = (event) => {
+			rhit.fbAuthManager.signIn();
+		}
 	}
 }
 
 rhit.FbAuthManager = class {
 	constructor() {
 		this._user = null;
-		console.log("You have made the Auth Manager");
 	}
-	beginListening(changeListener) {}
+	beginListening(changeListener) {
+		firebase.auth().onAuthStateChanged((user) => {
+			this._user = user;
+			changeListener();
+		});
+	}
 	signIn() {}
-	signOut() {}
-	get isSignedIn() {}
-	get uid() {}
+	signOut() {
+		firebase.auth().signOut().catch((error) => {
+			// An error happened.
+			console.log("sign out error");
+		});
+	}
+	get isSignedIn() {
+		return !!this._user;
+	}
+	get uid() {
+		return this._user.uid;
+	}
 }
 
 
@@ -287,6 +302,9 @@ rhit.FbAuthManager = class {
 rhit.main = function () {
 	console.log("Ready");
 	rhit.fbAuthManager = new rhit.FbAuthManager();
+	rhit.fbAuthManager.beginListening(() => {
+		console.log("auth change callback fired.")
+	});
 
 	if (document.querySelector("#listPage")) {
 		console.log("You are on the list page.");

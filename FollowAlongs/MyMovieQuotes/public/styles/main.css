@@ -21,6 +21,8 @@ body {
     
 }
 
+
+
 #fab:active {
     transform: translateY(2px);
     opacity: 0.8;
@@ -40,4 +42,20 @@ body {
 
 .dropdown-menu-right {
     left: -128px;
+}
+
+#roseLogo {
+    max-width: 320px;
+    margin: 20px auto;
+    display: block;
+}
+
+#roseFireButton {
+    background-color: #800000;
+    color: white;
+    display: block;
+    margin: 60px auto;
+    font-size: 1.1em;
+    padding: 10px 30px;
+    border-radius: 5px;
 }

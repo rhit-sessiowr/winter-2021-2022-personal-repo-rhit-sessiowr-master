@@ -14,52 +14,11 @@
   <nav class="navbar navbar-dark fixed-top">
     <a class="navbar-brand" href="#">My Movie Quotes</a>
   </nav>
-  <div id="listPage" class="container page-container">
-    
-    <div id="quoteListContainer">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title"></h5>
-          <h6 class="card-subtitle mb-2 text-muted"></h6>
-        </div>
-      </div>
-    </div>
+  <div id="loginPage" class="container page-container">
+    <img src="" alt="Rose-Hulman Logo">
 
   </div>
 
-
-  <button type="button" id="fab" class="btn btn-primary bmd-btn-fab" data-toggle="modal" data-target="#addQuoteModal">
-    <i class="material-icons">add</i>
-  </button>
-
-
-
-<!-- Modal -->
-<div class="modal fade" id="addQuoteModal" tabindex="-1" role="dialog" aria-labelledby="Add Quote Modal" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Add Movie Quote</h5>
-      </div>
-      <div class="modal-body">
-          <div class="form-group bmd-form-group"> <!-- left unspecified, .bmd-form-group will be automatically added (inspect the code) -->
-            <label for="inputQuote" class="bmd-label-floating">Quote</label>
-            <input type="text" class="form-control" id="inputQuote">
-          </div>
-          <div class="form-group bmd-form-group"> <!-- manually specified --> 
-            <label for="inputMovie" class="bmd-label-floating">Movie</label>
-            <input type="text" class="form-control" id="inputMovie">
-            <span class="bmd-help">What movie is this quote from?</span>
-
-          </div>
-        </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">CANCEL</button>
-        <button id="submitAddQuote" type="button" data-dismiss="modal" class="btn btn-primary">CREATE</button>
-      </div>
-    </div>
-  </div>
-</div>
 
   <script src="scripts/jquery.min.js"></script>
   <script src="scripts/popper.js"></script>

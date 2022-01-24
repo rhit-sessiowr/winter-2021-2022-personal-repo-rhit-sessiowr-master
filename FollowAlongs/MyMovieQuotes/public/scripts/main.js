@@ -30,6 +30,17 @@ function htmlToElement(html) {
 
 rhit.ListPageController = class {
 	constructor() {
+		document.querySelector("#menuShowAllQuotes").addEventListener("click", (event) => {
+			window.location.href = "/list.html";
+		})
+		document.querySelector("#menuShowMyQuotes").addEventListener("click", (event) => {
+			window.location.href = `/list.html?uid=${rhit.fbAuthManager.uid}`;
+			
+		})
+		document.querySelector("#menuSignOut").addEventListener("click", (event) => {
+			rhit.fbAuthManager.signOut();			
+		})
+
 		// document.querySelector("#submitAddQuote").onclick = (event) => {
 
 		// }
@@ -283,8 +294,8 @@ rhit.FbAuthManager = class {
 	signIn() {
 		Rosefire.signIn("69ad927d-e2d8-4e66-b726-d6bc930ad5c8", (err, rfUser) => {
 			if (err) {
-				console.log("Rosefire error!", err);
-				return;
+			  console.log("Rosefire error!", err);
+			  return;
 			}
 			console.log("Rosefire success!", rfUser);
 			firebase.auth().signInWithCustomToken(rfUser.token).catch((error) => {
@@ -292,13 +303,13 @@ rhit.FbAuthManager = class {
 				var errorCode = error.code;
 				var errorMessage = error.message;
 				if (errorCode === 'auth/invalid-custom-token') {
-					alert('The token you provided is not valid.');
+				  alert('The token you provided is not valid.');
 				} else {
-					console.error("custom auth error: ", errorCode, errorMessage);
+				  console.error("custom auth error: ",errorCode, errorMessage);
 				}
-			});
-
-		});
+			  });
+			
+		  });
 
 	}
 	signOut() {
@@ -315,18 +326,18 @@ rhit.FbAuthManager = class {
 	}
 }
 
-rhit.checkForRedirects = function () {
-	if (document.querySelector("#loginPage") && rhit.fbAuthManager.isSignedIn) {
+rhit.checkForRedirects = function() {
+	if(document.querySelector("#loginPage") && rhit.fbAuthManager.isSignedIn) {
 		window.location.href = "/list.html";
 	}
 
-	if (!document.querySelector("#loginPage") && !rhit.fbAuthManager.isSignedIn) {
+	if(!document.querySelector("#loginPage") && !rhit.fbAuthManager.isSignedIn) {
 		window.location.href = "/";
 	}
 
 }
 
-rhit.initializePage = function () {
+rhit.initializePage = function() {
 	if (document.querySelector("#listPage")) {
 		console.log("You are on the list page.");
 		rhit.fbMovieQuotesManager = new rhit.FbMovieQuotesManager();
@@ -367,7 +378,7 @@ rhit.main = function () {
 		console.log("isSignedIn: ", rhit.fbAuthManager.isSignedIn);
 
 
-		rhit.checkForRedirects();
+		rhit.checkForRedirects(); 
 
 
 		rhit.initializePage();
@@ -376,7 +387,7 @@ rhit.main = function () {
 
 	});
 
-
+	
 
 
 

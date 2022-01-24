@@ -41,14 +41,14 @@ body {
 }
 
 #singlePhotoContainer {
-    column-count: 3;
+    
 }
 
 
 .singlepin {
     display: inline-block;
     box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
-    margin: 0 2px 15px;
+    margin: auto;
     padding: 10px;
     padding-bottom: 5px;
     background: linear-gradient(45deg, #FFF, #EEE);
@@ -56,7 +56,7 @@ body {
 }
 
 .singlepin img {
-    width: 100%;
+    max-width: 100%;
     border-bottom: 1px solid #ccc;
     padding-bottom: 8px;
     margin-bottom: 3px;

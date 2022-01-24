@@ -26,11 +26,37 @@ rhit.ViewController = class {
 			imageInputEl.selectedIndex = 0;
 		}
 
+		rhit.fbFamilyMembersManager.beginListening(this.updateView.bind(this));
+	}
 
-		this.updateView();
+	_createMember(familyMember) {
+		return htmlToElement(`<div class="col-3 col-md-2">
+		<img src="${familyMember.imageUrl}" class="img-fluid" alt="${familyMember.name}">
+		<div class="text-center">${familyMember.name}</div>
+	  </div>`);
+
 	}
 
 	updateView() {
+		console.log("Update List!");
+		console.log(`Num Members = ${rhit.fbFamilyMembersManager.length}`);
+
+		const newList = htmlToElement('<div id="familyList" class="row justify-content-center"></div>');
+		for (let i = 0; i < rhit.fbFamilyMembersManager.length; i++) {
+			const fm = rhit.fbFamilyMembersManager.getFamilyMemberAtIndex(i);
+			const newMember = this._createMember(fm);
+
+
+			newMember.onclick = (event) => {
+				console.log("clicked a card")
+				// rhit.storage.setMovieQuoteId(mq.id);
+			}
+			newList.appendChild(newMember);
+		}
+		const oldList = document.querySelector("#familyList");
+		oldList.removeAttribute("id");
+		oldList.hidden = true;
+		oldList.parentElement.appendChild(newList);
 
 	}
 }
@@ -68,13 +94,13 @@ rhit.FbFamilyMembersManager = class {
 			});
 	}
 	beginListening(changeListener) {
-		this._unsubscribe = this._ref.orderBy(rhit.FB_KEY_LAST_TOUCHED, "desc").limit(50).onSnapshot((querySnapshot) => {
-
+		this._unsubscribe = this._ref.orderBy(rhit.FB_KEY_CREATED).limit(50).onSnapshot((querySnapshot) => {
+			console.log("family members updated");
 			this._documentSnapshots = querySnapshot.docs;
 
-			// querySnapshot.forEach((doc) => {
-			// 	console.log(doc.data());
-			// });
+			querySnapshot.forEach((doc) => {
+				console.log(doc.data());
+			});
 
 			changeListener();
 
@@ -89,15 +115,15 @@ rhit.FbFamilyMembersManager = class {
 	get length() {
 		return this._documentSnapshots.length;
 	}
-	getMovieQuoteAtIndex(index) {
+	getFamilyMemberAtIndex(index) {
 		const docSnapshot = this._documentSnapshots[index];
-		const mq = new rhit.MovieQuote(
+		const fm = new rhit.FamilyMember(
 			docSnapshot.id,
-			docSnapshot.get(rhit.FB_KEY_QUOTE),
-			docSnapshot.get(rhit.FB_KEY_MOVIE)
+			docSnapshot.get(rhit.FB_NAME),
+			docSnapshot.get(rhit.FB_IMAGE_URL)
 		);
 
-		return mq;
+		return fm;
 	}
 }
 

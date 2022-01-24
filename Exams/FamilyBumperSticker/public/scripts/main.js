@@ -49,10 +49,12 @@ rhit.ViewController = class {
 
 			newMember.onclick = (event) => {
 				console.log("clicked a card")
+				rhit.fbFamilyMembersManager.delete(fm.id);
 				// rhit.storage.setMovieQuoteId(mq.id);
 			}
 			newList.appendChild(newMember);
 		}
+
 		const oldList = document.querySelector("#familyList");
 		oldList.removeAttribute("id");
 		oldList.hidden = true;
@@ -111,7 +113,9 @@ rhit.FbFamilyMembersManager = class {
 		this._unsubscribe();
 	}
 	// update(id, quote, movie) {    }
-	// delete(id) { }
+	 delete(id) { 
+		return this._ref.doc(id).delete();
+	 }
 	get length() {
 		return this._documentSnapshots.length;
 	}

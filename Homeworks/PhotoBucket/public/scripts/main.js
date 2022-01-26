@@ -32,7 +32,7 @@ rhit.ListPageController = class {
 			const caption = document.querySelector("#inputCaption").value;
 			rhit.fbPhotosManager.add(imageUrl, caption);
 
-			
+
 		}
 
 		$("#addPhotoModal").on("show.bs.modal", (event) => {
@@ -42,7 +42,7 @@ rhit.ListPageController = class {
 		})
 
 		$("#addPhotoModal").on("shown.bs.modal", (event) => {
-			document.querySelector("#inputImageUrl").focus();		
+			document.querySelector("#inputImageUrl").focus();
 		})
 
 
@@ -50,12 +50,12 @@ rhit.ListPageController = class {
 	}
 
 
-	
-	
+
+
 
 	updateList() {
 		const newList = htmlToElement('<div id="photoContainer"></div>');
-		for(let i = 0; i < rhit.fbPhotosManager.length; i++) {
+		for (let i = 0; i < rhit.fbPhotosManager.length; i++) {
 			const photo = rhit.fbPhotosManager.getPhotoAtIndex(i);
 			const newPin = this._createPin(photo);
 			newPin.onclick = (event) => {
@@ -100,17 +100,17 @@ rhit.FbPhotosManager = class {
 
 	add(imageUrl, caption) {
 		this._ref.add({
-			[rhit.FB_KEY_IMAGEURL]: imageUrl,
-			[rhit.FB_KEY_CAPTION]: caption,
-			[rhit.FB_KEY_LAST_TOUCHED]: firebase.firestore.Timestamp.now()
-		})
-		.then((docRef) => {
-			console.log("Document written with ID: ", docRef.id);
-		})
-		.catch((error) => {
-			console.error("Error adding document: ", error);
-		});
-	
+				[rhit.FB_KEY_IMAGEURL]: imageUrl,
+				[rhit.FB_KEY_CAPTION]: caption,
+				[rhit.FB_KEY_LAST_TOUCHED]: firebase.firestore.Timestamp.now()
+			})
+			.then((docRef) => {
+				console.log("Document written with ID: ", docRef.id);
+			})
+			.catch((error) => {
+				console.error("Error adding document: ", error);
+			});
+
 	}
 
 	beginListening(changeListener) {
@@ -142,7 +142,7 @@ rhit.FbPhotosManager = class {
 	}
 
 	getPhotoAtIndex(index) {
-		const docSnapshot  = this._documentSnapshots[index];
+		const docSnapshot = this._documentSnapshots[index];
 		const photo = new rhit.Photo(
 			docSnapshot.id, docSnapshot.get(rhit.FB_KEY_IMAGEURL), docSnapshot.get(rhit.FB_KEY_CAPTION)
 		)
@@ -212,16 +212,16 @@ rhit.FbSinglePhotoManager = class {
 
 	update(caption) {
 		this._ref.update({
-			[rhit.FB_KEY_CAPTION]: caption,
-			[rhit.FB_KEY_LAST_TOUCHED]: firebase.firestore.Timestamp.now(),
-			
-		})
-		.then(() => {
-			console.log("Document successfully updated!");
-		})
-		.catch((error) => {
-			console.error("Error updating document: ", error);
-		});
+				[rhit.FB_KEY_CAPTION]: caption,
+				[rhit.FB_KEY_LAST_TOUCHED]: firebase.firestore.Timestamp.now(),
+
+			})
+			.then(() => {
+				console.log("Document successfully updated!");
+			})
+			.catch((error) => {
+				console.error("Error updating document: ", error);
+			});
 	}
 
 	delete() {
@@ -240,6 +240,9 @@ rhit.FbSinglePhotoManager = class {
 
 rhit.LoginPageController = class {
 	constructor() {
+		document.querySelector("#roseFireButton").onclick = (event) => {
+			rhit.fbAuthManager.signIn();
+		}
 	}
 }
 
@@ -248,11 +251,27 @@ rhit.FbAuthManager = class {
 		this._user = null;
 	}
 
-	beginListening(changeListener) {}
-	signIn() {}
-	signOut() {}
-	get isSignedIn() {}
-	get uid() {}
+	beginListening(changeListener) {
+		firebase.auth().onAuthStateChanged((user) => {
+			this._user = user;
+			changeListener();
+		});
+	}
+	signIn(
+
+	) {}
+	signOut() {
+		firebase.auth().signOut().catch((error) => {
+			// An error happened.
+			console.log("sign out error");
+		});
+	}
+	get isSignedIn() {
+		return !!this._user;
+	}
+	get uid() {
+		return this._user.uid;
+	}
 
 }
 
@@ -262,29 +281,32 @@ rhit.FbAuthManager = class {
 rhit.main = function () {
 	console.log("Ready");
 	rhit.fbAuthManager = new rhit.FbAuthManager();
+	rhit.fbAuthManager.beginListening(() => {
 
-	if(document.querySelector("#loginPage")) {
+	})
+
+	if (document.querySelector("#loginPage")) {
 		console.log("This is the login page.");
 		new rhit.LoginPageController();
 
 	}
 
-	if(document.querySelector("#listPage")) {
+	if (document.querySelector("#listPage")) {
 		console.log("This is the list page.");
 		rhit.fbPhotosManager = new rhit.FbPhotosManager();
 		new rhit.ListPageController();
 
 	}
 
-	if(document.querySelector("#detailPage")) {
+	if (document.querySelector("#detailPage")) {
 		console.log("This is the detail page.");
 
 		const queryString = window.location.search;
 		const urlParams = new URLSearchParams(queryString)
 		const photoId = urlParams.get("id");
-		if(!photoId) {
+		if (!photoId) {
 			window.location.href = "/"
-		} 
+		}
 
 		rhit.fbSinglePhotoManager = new rhit.FbSinglePhotoManager(photoId);
 		new rhit.DetailPageController();
@@ -292,6 +314,8 @@ rhit.main = function () {
 	}
 
 	rhit.startFirebaseUI();
+
+
 
 
 	//Temp code
@@ -308,23 +332,23 @@ rhit.main = function () {
 	// });
 };
 
-rhit.startFirebaseUI = function() {
+rhit.startFirebaseUI = function () {
 	// FirebaseUI config.
 	var uiConfig = {
-	   signInSuccessUrl: '/',
-	   signInOptions: [
-		 // Leave the lines as is for the providers you want to offer your users.
-		 firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-		 firebase.auth.EmailAuthProvider.PROVIDER_ID,
-		 firebase.auth.PhoneAuthProvider.PROVIDER_ID,
-		 firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID
-	   ],
-	 };
+		signInSuccessUrl: '/list.html',
+		signInOptions: [
+			// Leave the lines as is for the providers you want to offer your users.
+			firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+			firebase.auth.EmailAuthProvider.PROVIDER_ID,
+			firebase.auth.PhoneAuthProvider.PROVIDER_ID,
+			firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID
+		],
+	};
 
-	 // Initialize the FirebaseUI Widget using Firebase.
-	 const ui = new firebaseui.auth.AuthUI(firebase.auth());
-	 // The start method will wait until the DOM is loaded.
-	 ui.start('#firebaseui-auth-container', uiConfig);
+	// Initialize the FirebaseUI Widget using Firebase.
+	const ui = new firebaseui.auth.AuthUI(firebase.auth());
+	// The start method will wait until the DOM is loaded.
+	ui.start('#firebaseui-auth-container', uiConfig);
 }
 
 rhit.main();

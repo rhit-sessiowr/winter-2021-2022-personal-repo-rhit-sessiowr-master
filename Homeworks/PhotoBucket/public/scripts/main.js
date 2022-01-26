@@ -257,9 +257,28 @@ rhit.FbAuthManager = class {
 			changeListener();
 		});
 	}
-	signIn(
-
-	) {}
+	signIn() {
+		//75cf8c69-1de4-465b-a680-01b38b0877ca
+		Rosefire.signIn("75cf8c69-1de4-465b-a680-01b38b0877ca", (err, rfUser) => {
+			if (err) {
+			  console.log("Rosefire error!", err);
+			  return;
+			}
+			console.log("Rosefire success!", rfUser);
+			firebase.auth().signInWithCustomToken(rfUser.token).catch((error) => {
+				// Handle Errors here.
+				var errorCode = error.code;
+				var errorMessage = error.message;
+				if (errorCode === 'auth/invalid-custom-token') {
+				  alert('The token you provided is not valid.');
+				} else {
+				  console.error("custom auth error: ",errorCode, errorMessage);
+				}
+			  });
+			
+		  });
+		
+	}
 	signOut() {
 		firebase.auth().signOut().catch((error) => {
 			// An error happened.
@@ -275,16 +294,18 @@ rhit.FbAuthManager = class {
 
 }
 
+rhit.checkForRedirects = function() {
+	if(document.querySelector("#loginPage") && rhit.fbAuthManager.isSignedIn) {
+		window.location.href = "/list.html";
+	}
 
-/* Main */
-/** function and class syntax examples */
-rhit.main = function () {
-	console.log("Ready");
-	rhit.fbAuthManager = new rhit.FbAuthManager();
-	rhit.fbAuthManager.beginListening(() => {
+	if(!document.querySelector("#loginPage") && !rhit.fbAuthManager.isSignedIn) {
+		window.location.href = "/";
+	}
+}
 
-	})
-
+rhit.initializePage = function() {
+	const urlParams = new URLSearchParams(window.location.search);
 	if (document.querySelector("#loginPage")) {
 		console.log("This is the login page.");
 		new rhit.LoginPageController();
@@ -293,6 +314,8 @@ rhit.main = function () {
 
 	if (document.querySelector("#listPage")) {
 		console.log("This is the list page.");
+		const uid = urlParams.get("uid");
+		console.log("got url param = ", uid);
 		rhit.fbPhotosManager = new rhit.FbPhotosManager();
 		new rhit.ListPageController();
 
@@ -312,6 +335,22 @@ rhit.main = function () {
 		new rhit.DetailPageController();
 
 	}
+}
+
+
+/* Main */
+/** function and class syntax examples */
+rhit.main = function () {
+	console.log("Ready");
+	rhit.fbAuthManager = new rhit.FbAuthManager();
+	rhit.fbAuthManager.beginListening(() => {
+
+		rhit.checkForRedirects();
+
+		rhit.initializePage();
+
+	})
+
 
 	rhit.startFirebaseUI();
 

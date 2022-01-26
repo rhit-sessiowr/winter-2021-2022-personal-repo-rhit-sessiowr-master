@@ -40,7 +40,19 @@ body {
     left: -128px;
 }
 
+#firebaseui-auth-container {
+    margin-top: 60px;
+}
 
+#roseFireButton {
+    background-color: #800000;
+    color: white;
+    display: block;
+    margin: 60px auto;
+    font-size: 1.1em;
+    padding: 10px 30px;
+    border-radius: 5px;
+}
 
 
 .singlepin {

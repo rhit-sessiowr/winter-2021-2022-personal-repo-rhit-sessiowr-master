@@ -15,6 +15,7 @@ rhit.FB_KEY_CAPTION = "caption";
 rhit.FB_KEY_LAST_TOUCHED = "lastTouched";
 rhit.fbPhotosManager = null;
 rhit.fbSinglePhotoManager = null;
+rhit.fbAuthManager = null;
 
 //From: https://stackoverflow.com/questions/494143/creating-a-new-dom-element-from-an-html-string-using-built-in-dom-methods-or-pro/35385518#35385518
 function htmlToElement(html) {
@@ -237,10 +238,37 @@ rhit.FbSinglePhotoManager = class {
 
 }
 
+rhit.LoginPageController = class {
+	constructor() {
+	}
+}
+
+rhit.FbAuthManager = class {
+	constructor() {
+		this._user = null;
+	}
+
+	beginListening(changeListener) {}
+	signIn() {}
+	signOut() {}
+	get isSignedIn() {}
+	get uid() {}
+
+}
+
+
 /* Main */
 /** function and class syntax examples */
 rhit.main = function () {
 	console.log("Ready");
+	rhit.fbAuthManager = new rhit.FbAuthManager();
+
+	if(document.querySelector("#loginPage")) {
+		console.log("This is the login page.");
+		new rhit.LoginPageController();
+
+	}
+
 	if(document.querySelector("#listPage")) {
 		console.log("This is the list page.");
 		rhit.fbPhotosManager = new rhit.FbPhotosManager();
@@ -256,12 +284,15 @@ rhit.main = function () {
 		const photoId = urlParams.get("id");
 		if(!photoId) {
 			window.location.href = "/"
-		}
+		} 
 
 		rhit.fbSinglePhotoManager = new rhit.FbSinglePhotoManager(photoId);
 		new rhit.DetailPageController();
 
 	}
+
+	rhit.startFirebaseUI();
+
 
 	//Temp code
 	// const ref = firebase.firestore().collection("PhotoBucket");
@@ -276,5 +307,24 @@ rhit.main = function () {
 	// 	caption: "test"
 	// });
 };
+
+rhit.startFirebaseUI = function() {
+	// FirebaseUI config.
+	var uiConfig = {
+	   signInSuccessUrl: '/',
+	   signInOptions: [
+		 // Leave the lines as is for the providers you want to offer your users.
+		 firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+		 firebase.auth.EmailAuthProvider.PROVIDER_ID,
+		 firebase.auth.PhoneAuthProvider.PROVIDER_ID,
+		 firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID
+	   ],
+	 };
+
+	 // Initialize the FirebaseUI Widget using Firebase.
+	 const ui = new firebaseui.auth.AuthUI(firebase.auth());
+	 // The start method will wait until the DOM is loaded.
+	 ui.start('#firebaseui-auth-container', uiConfig);
+}
 
 rhit.main();

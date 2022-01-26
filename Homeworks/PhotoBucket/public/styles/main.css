@@ -71,6 +71,11 @@ body {
     margin-right: 0.75rem;
 }
 
+#menuEdit,
+#menuDelete {
+    display: none;
+}
+
 
 .singlepin {
     display: inline-block;

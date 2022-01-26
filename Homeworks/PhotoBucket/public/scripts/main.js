@@ -178,10 +178,16 @@ rhit.FbPhotosManager = class {
 rhit.DetailPageController = class {
 	constructor() {
 
+		document.querySelector("#menuSignOut").onclick = (event) => {
+			rhit.fbAuthManager.signOut();
+		} 
+
 		document.querySelector("#submitUpdatePhoto").addEventListener("click", (event) => {
 			const caption = document.querySelector("#inputCaption").value;
 			rhit.fbSinglePhotoManager.update(caption);
 		})
+
+
 
 		$("#editPhotoModal").on("show.bs.modal", (event) => {
 			document.querySelector("#inputCaption").value = rhit.fbSinglePhotoManager.caption;
@@ -193,7 +199,7 @@ rhit.DetailPageController = class {
 		document.querySelector("#submitDeletePhoto").addEventListener("click", (event) => {
 			rhit.fbSinglePhotoManager.delete().then(() => {
 				console.log("Document successfully deleted!");
-				window.location.href = "/";
+				window.location.href = "/list.html";
 			}).catch((error) => {
 				console.error("Error removing document: ", error);
 			});
@@ -206,6 +212,11 @@ rhit.DetailPageController = class {
 		console.log("update the view");
 		document.querySelector("#photoUrl").src = rhit.fbSinglePhotoManager.imageUrl;
 		document.querySelector("#photoCaption").innerHTML = rhit.fbSinglePhotoManager.caption;
+
+		if(rhit.fbSinglePhotoManager.author == rhit.fbAuthManager.uid) {
+			document.querySelector("#menuEdit").style.display = "flex";
+			document.querySelector("#menuDelete").style.display = "flex";
+		}
 	}
 }
 
@@ -259,6 +270,10 @@ rhit.FbSinglePhotoManager = class {
 
 	get imageUrl() {
 		return this._documentSnapshot.get(rhit.FB_KEY_IMAGEURL);
+	}
+
+	get author() {
+		return this._documentSnapshot.get(rhit.FB_KEY_AUTHOR);
 	}
 
 }

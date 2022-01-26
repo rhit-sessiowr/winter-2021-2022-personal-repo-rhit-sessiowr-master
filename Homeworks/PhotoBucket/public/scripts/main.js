@@ -13,6 +13,7 @@ rhit.FB_COLLECTION_PHOTOBUCKET = "PhotoBucket";
 rhit.FB_KEY_IMAGEURL = "imageUrl";
 rhit.FB_KEY_CAPTION = "caption";
 rhit.FB_KEY_LAST_TOUCHED = "lastTouched";
+rhit.FB_KEY_AUTHOR = "author";
 rhit.fbPhotosManager = null;
 rhit.fbSinglePhotoManager = null;
 rhit.fbAuthManager = null;
@@ -27,6 +28,21 @@ function htmlToElement(html) {
 
 rhit.ListPageController = class {
 	constructor() {
+
+		document.querySelector("#menuShowAllPhotos").onclick = (event) => {
+			window.location.href = "/list.html";
+		} 
+
+		document.querySelector("#menuShowMyPhotos").onclick = (event) => {
+			window.location.href = `/list.html?uid=${rhit.fbAuthManager.uid}`;
+		} 
+
+		document.querySelector("#menuSignOut").onclick = (event) => {
+			rhit.fbAuthManager.signOut();
+		} 
+
+
+
 		document.querySelector("#submitAddPhoto").onclick = (event) => {
 			const imageUrl = document.querySelector("#inputImageUrl").value;
 			const caption = document.querySelector("#inputCaption").value;
@@ -34,6 +50,7 @@ rhit.ListPageController = class {
 
 
 		}
+
 
 		$("#addPhotoModal").on("show.bs.modal", (event) => {
 			document.querySelector("#inputImageUrl").value = "";
@@ -102,6 +119,7 @@ rhit.FbPhotosManager = class {
 		this._ref.add({
 				[rhit.FB_KEY_IMAGEURL]: imageUrl,
 				[rhit.FB_KEY_CAPTION]: caption,
+				[rhit.FB_KEY_AUTHOR]: rhit.fbAuthManager.uid,
 				[rhit.FB_KEY_LAST_TOUCHED]: firebase.firestore.Timestamp.now()
 			})
 			.then((docRef) => {
@@ -261,8 +279,8 @@ rhit.FbAuthManager = class {
 		//75cf8c69-1de4-465b-a680-01b38b0877ca
 		Rosefire.signIn("75cf8c69-1de4-465b-a680-01b38b0877ca", (err, rfUser) => {
 			if (err) {
-			  console.log("Rosefire error!", err);
-			  return;
+				console.log("Rosefire error!", err);
+				return;
 			}
 			console.log("Rosefire success!", rfUser);
 			firebase.auth().signInWithCustomToken(rfUser.token).catch((error) => {
@@ -270,14 +288,14 @@ rhit.FbAuthManager = class {
 				var errorCode = error.code;
 				var errorMessage = error.message;
 				if (errorCode === 'auth/invalid-custom-token') {
-				  alert('The token you provided is not valid.');
+					alert('The token you provided is not valid.');
 				} else {
-				  console.error("custom auth error: ",errorCode, errorMessage);
+					console.error("custom auth error: ", errorCode, errorMessage);
 				}
-			  });
-			
-		  });
-		
+			});
+
+		});
+
 	}
 	signOut() {
 		firebase.auth().signOut().catch((error) => {
@@ -294,17 +312,17 @@ rhit.FbAuthManager = class {
 
 }
 
-rhit.checkForRedirects = function() {
-	if(document.querySelector("#loginPage") && rhit.fbAuthManager.isSignedIn) {
+rhit.checkForRedirects = function () {
+	if (document.querySelector("#loginPage") && rhit.fbAuthManager.isSignedIn) {
 		window.location.href = "/list.html";
 	}
 
-	if(!document.querySelector("#loginPage") && !rhit.fbAuthManager.isSignedIn) {
+	if (!document.querySelector("#loginPage") && !rhit.fbAuthManager.isSignedIn) {
 		window.location.href = "/";
 	}
 }
 
-rhit.initializePage = function() {
+rhit.initializePage = function () {
 	const urlParams = new URLSearchParams(window.location.search);
 	if (document.querySelector("#loginPage")) {
 		console.log("This is the login page.");

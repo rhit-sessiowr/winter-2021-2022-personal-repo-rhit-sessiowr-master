@@ -14,43 +14,10 @@
   <nav class="navbar navbar-dark fixed-top">
     <a class="navbar-brand" href="#">Photo Bucket</a>
   </nav>
-  <div id="listPage" class="container page-container">
-
-
-    <div id="photoContainer">
-    </div>
-
+  <div id="loginPage" class="container page-container">
 
   </div>
 
-
-  <button type="button" id="fab" class="btn btn-primary bmd-btn-fab" data-toggle="modal" data-target="#addPhotoModal">
-    <i class="material-icons">add</i>
-  </button>
-
-  <div class="modal fade" id="addPhotoModal" tabindex="-1" role="dialog" aria-labelledby="Add Photo Modal" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Add a Photo</h5>
-        </div>
-        <div class="modal-body">
-            <div class="form-group bmd-form-group"> <!-- left unspecified, .bmd-form-group will be automatically added (inspect the code) -->
-              <label for="inputImageUrl" id="imageLabel">Image:</label>
-              <input type="text" class="form-control" id="inputImageUrl" placeholder="URL to existing image">
-            </div>
-            <div class="form-group bmd-form-group"> <!-- manually specified --> 
-              <label for="inputCaption" id="captionLabel">Caption:</label>
-              <input type="text" class="form-control" id="inputCaption" placeholder="image related text">  
-            </div>
-          </div>
-        <div class="modal-footer">
-          <button id="cancelButton" type="button" class="btn btn-secondary" data-dismiss="modal">CANCEL</button>
-          <button id="submitAddPhoto" type="button" data-dismiss="modal" class="btn btn-primary">CREATE</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
 
   <script src="scripts/jquery.min.js"></script>

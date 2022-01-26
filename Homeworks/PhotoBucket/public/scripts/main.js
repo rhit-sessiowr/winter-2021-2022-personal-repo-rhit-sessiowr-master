@@ -109,7 +109,8 @@ rhit.Photo = class {
 }
 
 rhit.FbPhotosManager = class {
-	constructor() {
+	constructor(uid) {
+		this._uid = uid;
 		this._documentSnapshots = [];
 		this._ref = firebase.firestore().collection(rhit.FB_COLLECTION_PHOTOBUCKET);
 		this._unsubscribe = null;
@@ -132,7 +133,13 @@ rhit.FbPhotosManager = class {
 	}
 
 	beginListening(changeListener) {
-		this._unsubscribe = this._ref.onSnapshot((querySnapshot) => {
+		let query = this._ref.orderBy(rhit.FB_KEY_LAST_TOUCHED, "desc").limit(50);
+		if(this._uid) {
+			query = query.where(rhit.FB_KEY_AUTHOR, "==", this._uid);
+		}
+
+
+		this._unsubscribe = query.onSnapshot((querySnapshot) => {
 			this._documentSnapshots = querySnapshot.docs;
 			changeListener();
 
@@ -334,7 +341,7 @@ rhit.initializePage = function () {
 		console.log("This is the list page.");
 		const uid = urlParams.get("uid");
 		console.log("got url param = ", uid);
-		rhit.fbPhotosManager = new rhit.FbPhotosManager();
+		rhit.fbPhotosManager = new rhit.FbPhotosManager(uid);
 		new rhit.ListPageController();
 
 	}

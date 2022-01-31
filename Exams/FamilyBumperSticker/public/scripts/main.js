@@ -56,9 +56,11 @@ rhit.ViewController = class {
 		}
 
 		const oldList = document.querySelector("#familyList");
-		oldList.removeAttribute("id");
-		oldList.hidden = true;
-		oldList.parentElement.appendChild(newList);
+		console.log("OLD LIST: -----------");
+		console.log(oldList);
+		// oldList.removeAttribute("id");
+		// oldList.hidden = true;
+		// oldList.parentElement.appendChild(newList);
 
 	}
 }

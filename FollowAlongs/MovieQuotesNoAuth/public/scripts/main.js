@@ -81,6 +81,8 @@ rhit.ListPageController = class {
 			newList.appendChild(newCard);
 		}
 		const oldList = document.querySelector("#quoteListContainer");
+		console.log("OLD LIST ________________________________________");
+		console.log(oldList);
 		oldList.removeAttribute("id");
 		oldList.hidden = true;
 		oldList.parentElement.appendChild(newList);

@@ -44,7 +44,55 @@ rhit.ListPageController = class {
 		rhit.fbCountersManager.beginListening(this.updateList.bind(this));
 	}
 
+	_createCounter(counter) {
+		return htmlToElement(` <div class="col-12 col-md-6 col-lg-4 mt-3">
+        <div class="card">
+          <button type="button" class="btn delete-button"><i class="material-icons">delete_outline</i></button>
+          <h5 class="card-header">${counter.name}</h5>
+          <div class="card-body">
+            <h5 class="card-title text-center">${counter.value}</h5>
+            <div class="row">
+              <div class="col-4">
+                <button type="button" class="increment-button btn btn-outline-primary btn-block"><i
+                    class="material-icons">north</i></button>
+              </div>
+              <div class="col-4">
+                <button type="button" class="reset-button btn btn-outline-primary btn-block"><i
+                    class="material-icons">refresh</i></button>
+              </div>
+              <div class="col-4">
+                <button type="button" class="decrement-button btn btn-outline-primary btn-block"><i
+                    class="material-icons">south</i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>`);
+	}
+
 	updateList() {
+		console.log("update the list!");
+		console.log(`num counters: ${rhit.fbCountersManager.length} `);
+
+		const newList = htmlToElement('<div id="countersList" class="row justify-content-center"></div>');
+		for (let i = 0; i < rhit.fbCountersManager.length; i++) {
+			const counter = rhit.fbCountersManager.getCounterAtIndex(i);
+			console.log(counter);
+			const newCounter = this._createCounter(counter);
+
+
+			newCounter.onclick = (event) => {
+				console.log("clicked a card");
+			}
+			newList.appendChild(newCounter);
+
+			const oldList = document.querySelector("#countersList");
+			console.log("---------------OLD LIST-------------");
+			console.log(oldList);
+			oldList.removeAttribute("id");
+			// oldList.hidden = true;
+			// oldList.parentElement.appendChild(newList);
+		}
 
 	}
 }
@@ -66,7 +114,7 @@ rhit.FbCountersManager = class {
 
 	add(name) {
 		console.log(`name: ${name}`);
-		
+
 		this._ref.add({
 			[rhit.FB_KEY_NAME]: name,
 			[rhit.FB_KEY_VALUE]: 0,
@@ -81,6 +129,18 @@ rhit.FbCountersManager = class {
 	}
 
 	beginListening(changeListener) {
+		this._unsubscribe = this._ref.orderBy(rhit.FB_KEY_CREATED).limit(50).onSnapshot((querySnapshot) => {
+
+			this._documentSnapshots = querySnapshot.docs;
+
+			// querySnapshot.forEach((doc) => {
+			// 	console.log(doc.data());
+			// });
+
+			changeListener();
+
+
+		});
 
 	}
 
@@ -93,7 +153,7 @@ rhit.FbCountersManager = class {
 	}
 
 	delete() {
-
+		return this._ref.delete();
 	}
 
 	get length() {

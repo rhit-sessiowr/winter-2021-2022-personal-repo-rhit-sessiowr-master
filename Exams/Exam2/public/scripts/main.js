@@ -66,6 +66,18 @@ rhit.FbCountersManager = class {
 
 	add(name) {
 		console.log(`name: ${name}`);
+		
+		this._ref.add({
+			[rhit.FB_KEY_NAME]: name,
+			[rhit.FB_KEY_VALUE]: 0,
+			[rhit.FB_KEY_CREATED]: firebase.firestore.Timestamp.now(),
+		})
+		.then((docRef) => {
+			console.log("Document written with ID: ", docRef.id);
+		})
+		.catch((error) => {
+			console.error("Error adding document: ", error);
+		});
 	}
 
 	beginListening(changeListener) {

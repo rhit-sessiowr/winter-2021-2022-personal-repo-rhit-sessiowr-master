@@ -1,4 +1,3 @@
-
 /** namespace. */
 var rhit = rhit || {};
 
@@ -6,7 +5,7 @@ rhit.FB_COLLECTION_COUNTERS = "Counters";
 rhit.FB_KEY_NAME = "name";
 rhit.FB_KEY_VALUE = "value";
 rhit.FB_KEY_CREATED = "created";
-rhit.fbCountersManager = null; 
+rhit.fbCountersManager = null;
 
 function htmlToElement(html) {
 	var template = document.createElement('template');
@@ -85,14 +84,14 @@ rhit.ListPageController = class {
 				console.log("clicked a card");
 			}
 			newList.appendChild(newCounter);
-
-			const oldList = document.querySelector("#countersList");
-			console.log("---------------OLD LIST-------------");
-			console.log(oldList);
-			oldList.removeAttribute("id");
-			// oldList.hidden = true;
-			// oldList.parentElement.appendChild(newList);
 		}
+
+		const oldList = document.querySelector("#countersList");
+		console.log("---------------OLD LIST-------------");
+		console.log(oldList);
+		oldList.removeAttribute("id");
+		// oldList.hidden = true;
+		// oldList.parentElement.appendChild(newList);
 
 	}
 }
@@ -116,16 +115,16 @@ rhit.FbCountersManager = class {
 		console.log(`name: ${name}`);
 
 		this._ref.add({
-			[rhit.FB_KEY_NAME]: name,
-			[rhit.FB_KEY_VALUE]: 0,
-			[rhit.FB_KEY_CREATED]: firebase.firestore.Timestamp.now(),
-		})
-		.then((docRef) => {
-			console.log("Document written with ID: ", docRef.id);
-		})
-		.catch((error) => {
-			console.error("Error adding document: ", error);
-		});
+				[rhit.FB_KEY_NAME]: name,
+				[rhit.FB_KEY_VALUE]: 0,
+				[rhit.FB_KEY_CREATED]: firebase.firestore.Timestamp.now(),
+			})
+			.then((docRef) => {
+				console.log("Document written with ID: ", docRef.id);
+			})
+			.catch((error) => {
+				console.error("Error adding document: ", error);
+			});
 	}
 
 	beginListening(changeListener) {

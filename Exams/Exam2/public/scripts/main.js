@@ -78,12 +78,28 @@ rhit.ListPageController = class {
 			const counter = rhit.fbCountersManager.getCounterAtIndex(i);
 			console.log(counter);
 			const newCounter = this._createCounter(counter);
+			console.log(counter.value);
 
 
-			newCounter.onclick = (event) => {
-				console.log("clicked a card");
+			newCounter.querySelector(".increment-button").onclick = (event) => {
+				console.log("increment!");
 			}
 			newList.appendChild(newCounter);
+
+			newCounter.querySelector(".decrement-button").onclick = (event) => {
+				console.log("decrement!");
+			}
+			newCounter.querySelector(".reset-button").onclick = (event) => {
+				console.log("reset!");
+			}
+			newCounter.querySelector(".delete-button").onclick = (event) => {
+				console.log("delete!");
+				rhit.fbCountersManager.delete(counter.id).then(() => {
+					console.log("Document successfully deleted!");
+				}).catch((error) => {
+					console.error("Error removing document: ", error);
+				});
+			}
 		}
 
 		const oldList = document.querySelector("#countersList");
@@ -97,9 +113,10 @@ rhit.ListPageController = class {
 }
 
 rhit.Counter = class {
-	constructor(id, name) {
+	constructor(id, name, value) {
 		this.id = id;
 		this.name = name;
+		this.value = value;
 	}
 }
 
@@ -147,12 +164,16 @@ rhit.FbCountersManager = class {
 		this._unsubscribe();
 	}
 
-	update(value) {
+	updateInc(value) {
 
 	}
 
-	delete() {
-		return this._ref.delete();
+	updateDec(value) {
+
+	}
+
+	delete(id) {
+		return this._ref.doc(id).delete();
 	}
 
 	get length() {

@@ -1,0 +1,40 @@
+body {
+    background: #DDDDDD;
+}
+
+.navbar {
+    background-color: #800000;
+    color: white;
+}
+
+.page-container {
+    margin-top: 75px;
+}
+
+.card {
+    margin: 10px 0;
+    position: relative;
+}
+
+.delete-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+#fab {
+    background: #800000;
+    bottom: 10px;
+    color: white;
+    position: fixed;
+    right: 10px;
+    z-index: 999;
+}
+
+#fab:active {
+    opacity: 0.8;
+    transform: translateY(2px);
+}
+.card .card-body .card-title {
+    font-size: 3em;
+}

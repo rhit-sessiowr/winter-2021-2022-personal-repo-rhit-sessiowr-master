@@ -83,14 +83,19 @@ rhit.ListPageController = class {
 
 			newCounter.querySelector(".increment-button").onclick = (event) => {
 				console.log("increment!");
+				const value = counter.value + 1;
+				rhit.fbCountersManager.update(counter.id,value);
 			}
 			newList.appendChild(newCounter);
 
 			newCounter.querySelector(".decrement-button").onclick = (event) => {
 				console.log("decrement!");
+				rhit.fbCountersManager.update(counter.id, counter.value - 1);
 			}
+
 			newCounter.querySelector(".reset-button").onclick = (event) => {
 				console.log("reset!");
+				rhit.fbCountersManager.update(counter.id, 0);
 			}
 			newCounter.querySelector(".delete-button").onclick = (event) => {
 				console.log("delete!");
@@ -164,11 +169,16 @@ rhit.FbCountersManager = class {
 		this._unsubscribe();
 	}
 
-	updateInc(value) {
-
-	}
-
-	updateDec(value) {
+	update(id, value) {
+		this._ref.doc(id).update({
+			[rhit.FB_KEY_VALUE]: value,
+		})
+		.then(() => {
+			console.log("Document successfully updated!");
+		})
+		.catch((error) => {
+			console.error("Error updating document: ", error);
+		});
 
 	}
 

@@ -24,6 +24,24 @@ function htmlToElement(html) {
 rhit.ListPageController = class {
 	constructor() {
 		console.log("created list page controller");
+
+
+		document.querySelector("#submitAddCounter").onclick = (event) => {
+			console.log("added a counter!");
+			const name = document.querySelector("#inputName").value;
+			rhit.fbCountersManager.add(name);
+		}
+
+		$("#addCounterDialog").on("show.bs.modal", (event) => {
+			document.querySelector("#inputName").value = "";
+
+		})
+
+		$("#addCounterDialog").on("shown.bs.modal", (event) => {
+			document.querySelector("#inputName").focus();
+		})
+
+		rhit.fbCountersManager.beginListening(this.updateList.bind(this));
 	}
 
 	updateList() {

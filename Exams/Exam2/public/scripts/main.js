@@ -150,7 +150,7 @@ rhit.FbCountersManager = class {
 	}
 
 	beginListening(changeListener) {
-		this._unsubscribe = this._ref.orderBy(rhit.FB_KEY_CREATED).limit(50).onSnapshot((querySnapshot) => {
+		this._unsubscribe = this._ref.orderBy(rhit.FB_KEY_CREATED, "desc").limit(50).onSnapshot((querySnapshot) => {
 
 			this._documentSnapshots = querySnapshot.docs;
 

@@ -90,8 +90,8 @@ rhit.ListPageController = class {
 		console.log("---------------OLD LIST-------------");
 		console.log(oldList);
 		oldList.removeAttribute("id");
-		// oldList.hidden = true;
-		// oldList.parentElement.appendChild(newList);
+		oldList.hidden = true;
+		oldList.parentElement.appendChild(newList);
 
 	}
 }

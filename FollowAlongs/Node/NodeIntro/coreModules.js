@@ -13,4 +13,5 @@ fs.writeFile(   path.join(filesDirectory, "test.txt"), "Hello World written from
         console.log("Error", err);
         return;
     }
+    console.log("It succeeded, lets go!");
 });

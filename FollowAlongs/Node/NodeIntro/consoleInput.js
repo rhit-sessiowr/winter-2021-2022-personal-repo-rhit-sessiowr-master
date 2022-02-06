@@ -7,4 +7,3 @@ process.stdin.on("data", (data) => {
     process.exit();
 });
 
-//Note: < operator doesn't work on powershell?? try Git Bash

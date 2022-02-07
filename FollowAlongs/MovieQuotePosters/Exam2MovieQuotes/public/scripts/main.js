@@ -175,8 +175,41 @@ rhit.DetailPageController = class {
 	updateView() {
 		document.querySelector("#cardQuote").innerHTML = rhit.fbSingleQuoteManager.quote;
 		document.querySelector("#cardMovie").innerHTML = rhit.fbSingleQuoteManager.movie;
+
+		this.updatePoster();
+	}
+
+	async updatePoster() {
+		console.log("TODO: Use OMDBI to update the poster.");
+		const key = "691ddc11"
+		const url = `http://www.omdbapi.com/?apikey=${key}&t=${rhit.fbSingleQuoteManager.movie}`;
+		// fetch(url).then((resp) => {
+		// 	return resp.json();
+		// }).then((data) => {
+		// 	console.log("DATA: ",data);
+		// });
+
+		const resp = await fetch(url);
+		const data = await resp.json();
+		console.log("DATA: ", data);
+
+		const respvalue = data["Response"];
+		if(respvalue == "False") {
+			console.log("Invalid movie gamer.");
+			console.log(data["Error"]);
+			return;
+		}
+		const posterUrl = data["Poster"];
+		if(posterUrl.length < 4) {
+			console.log("No poster for that Movie gamer.");
+			return;
+		}
+		const imageEl = document.querySelector("#cardPoster");
+		imageEl.src = posterUrl;
+		imageEl.style.display = "flex";
 	}
 }
+
 
 rhit.FbSingleQuoteManager = class {
 	constructor(movieQuoteId) {

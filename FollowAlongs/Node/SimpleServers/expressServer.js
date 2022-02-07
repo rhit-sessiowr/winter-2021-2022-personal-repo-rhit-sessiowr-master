@@ -28,6 +28,18 @@ app.get("/users/:username", function(req,res) {
     res.send("<h1>Profile for "+username+"</h1>");
 });
 
-app.set('views', './views')
+app.set('views', './views');
+app.set('view engine', 'pug');
+
+app.get('/pug/', function(req,res) {
+    let array=[
+        {name:"Will"},
+        {name:"Jonathan"},
+        {name:"Michael"}
+    ]
+    res.render('index', {title: 'HEY!', 
+    message: 'Hello there! :))))',
+    arr: array});
+});
 
 app.listen(3000);

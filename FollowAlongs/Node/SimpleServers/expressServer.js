@@ -1,6 +1,8 @@
 var express = require('express');
 var app = express();
 
+let counter = 0;
+
 app.use('/static', express.static("Public"));
 
 app.get("/hello", function(req, res) {
@@ -40,6 +42,10 @@ app.get('/pug/', function(req,res) {
     res.render('index', {title: 'HEY!', 
     message: 'Hello there! :))))',
     arr: array});
+});
+
+app.get('/pug/hello', function(req,res) {
+    res.render('hello', {title: 'Hello Button', count: counter});
 });
 
 app.listen(3000);

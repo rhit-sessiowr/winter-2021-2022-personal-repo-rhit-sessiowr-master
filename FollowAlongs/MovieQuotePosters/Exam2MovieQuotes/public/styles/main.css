@@ -40,3 +40,9 @@ body {
 .dropdown-menu-right {
     left: -128px;
 }
+
+#cardPoster {
+    display: none;
+    max-width: 300px;
+    margin: auto;
+}

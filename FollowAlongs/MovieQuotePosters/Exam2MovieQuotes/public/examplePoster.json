@@ -1,0 +1,36 @@
+{
+    "Title": "Elf",
+    "Year": "2003",
+    "Rated": "PG",
+    "Released": "07 Nov 2003",
+    "Runtime": "97 min",
+    "Genre": "Adventure, Comedy, Family",
+    "Director": "Jon Favreau",
+    "Writer": "David Berenbaum",
+    "Actors": "Will Ferrell, James Caan, Bob Newhart",
+    "Plot": "Raised as an over-sized elf, a human travels from the North Pole to NYC to meet his biological father who doesn't know he exists and is in desperate need of some Christmas spirit.",
+    "Language": "English",
+    "Country": "United States",
+    "Awards": "2 wins & 7 nominations",
+    "Poster": "https://m.media-amazon.com/images/M/MV5BMzUxNzkzMzQtYjIxZC00NzU0LThkYTQtZjNhNTljMTA1MDA1L2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg",
+    "Ratings": [{
+        "Source": "Internet Movie Database",
+        "Value": "7.0/10"
+    }, {
+        "Source": "Rotten Tomatoes",
+        "Value": "85%"
+    }, {
+        "Source": "Metacritic",
+        "Value": "64/100"
+    }],
+    "Metascore": "64",
+    "imdbRating": "7.0",
+    "imdbVotes": "258,683",
+    "imdbID": "tt0319343",
+    "Type": "movie",
+    "DVD": "16 Nov 2004",
+    "BoxOffice": "$176,630,408",
+    "Production": "N/A",
+    "Website": "N/A",
+    "Response": "True"
+}

@@ -1,21 +1,29 @@
 body {
     background: #800000;
-}
-.button-group {
+  }
+  .button-group, .container {
     text-align: center;
-    /* border: gray solid 5px; */
-    padding: 5vw;
-}
-
-.button-group > button {
+    padding: 2vw;
+  }
+  #displayEntries {
+    margin: 0 15vw;
+    text-align: left;
+  }
+  button {
     font-size: 1.5em;
     padding: 10px 20px;
-    margin: 0 10px;
-}
-#counterText {
+    margin: 10px;
+  }
+  #counterText {
     color: white;
+    font: 3em Consolas, Arial, sans-serif;
     text-align: center;
-    font: 4em Consolas, Arial, sans-serif;
-    /* font-size: 4em;
-    font-family: Consolas, Arial, sans-serif; */
-}
+  }
+  label {
+    font: 3em Consolas, Arial, sans-serif;
+    color: white;
+  }
+  input {
+    font-size: 2em;
+  }
+  

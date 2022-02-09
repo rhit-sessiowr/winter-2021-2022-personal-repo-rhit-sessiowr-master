@@ -71,6 +71,7 @@ rhit.ListPageController = class {
 
 
 	updateList() {
+		console.log("Update List!");
 		const newList = htmlToElement('<div id="photoContainer"></div>');
 		for (let i = 0; i < rhit.fbPhotosManager.length; i++) {
 			const photo = rhit.fbPhotosManager.getPhotoAtIndex(i);

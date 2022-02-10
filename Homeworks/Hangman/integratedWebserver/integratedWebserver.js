@@ -146,6 +146,10 @@ app.delete("/api/admin/word/:id", function(req, res) {
  */
 
 // TODO: Add your code here.
+app.get("/api/player/numwords",function(req, res) {
+    res.send({"length": data.length});
+    res.end();
+});
 
 
 /**
@@ -158,7 +162,11 @@ app.delete("/api/admin/word/:id", function(req, res) {
  */
 
 // TODO: Add your code here.
-
+app.get("/api/player/wordlength/:id", function(req, res) {
+    let i = parseInt(req.params.id);
+    res.send({"length": data[i].length, "index": i});
+    res.end();
+});
 
 /**
  *  Guess - Allow the player to make a guess and return where that letter is found in the word.
@@ -173,6 +181,20 @@ app.delete("/api/admin/word/:id", function(req, res) {
  */
 
 // TODO: Add your code here.
+app.get("/api/player/guess/:id/:letter", function(req,res) {
+    let i = parseInt(req.params.id);
+    let letter = req.params.letter;
+    let word = data[i];
+    let locations = [];
+    for(let j = 0; j < word.length; j++) {
+        if(letter.toUpperCase() == word[j] || letter.toLowerCase() == word[j]){
+            locations.push(j);
+        }
+    }
+
+    res.send({"letter": letter, "length": word.length, "index": i, "locations": locations});
+    res.end();
+})
 
 
 

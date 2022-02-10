@@ -1,3 +1,4 @@
+
 var rhit = rhit || {};
 const adminApiUrl = "http://localhost:3000/api/admin/";
 //Reference (Note: the Admin api tells you words.  You are an admin.):
@@ -163,11 +164,15 @@ rhit.AdminController = class {
 rhit.PlayerController = class {
 	constructor() {
 		// Note to students, you can declare instance variables here (or later) to track the state for the game in progress.
-
+		this.numWords = null;
+		this.wordIndex = null;
+		this.randWordLength = null;
+		this.guessedLetters= [];
 		// Connect the Keyboard inputs
 		const keyboardKeys = document.querySelectorAll(".key");
 		for (const keyboardKey of keyboardKeys) {
 			keyboardKey.onclick = (event) => {
+				console.log(keyboardKey.dataset.key);
 				this.handleKeyPress(keyboardKey.dataset.key);
 			};
 		}
@@ -178,10 +183,49 @@ rhit.PlayerController = class {
 		this.handleNewGame(); // Start with a new game.
 	}
 
+	getRndInteger(min, max) {
+		return Math.floor(Math.random() * (max - min) ) + min;
+	}
+
+	replaceAt = function (str,index, char) {
+		let a = str.split("");
+		a[index] = char;
+		return a.join("");
+	}
+
 	handleNewGame() {
 		console.log(`TODO: Create a new game and update the view (after the backend calls).`);
-
 		// TODO: Add your code here.
+		this.numWords = null;
+		this.wordIndex = null;
+		this.randWordLength = null;
+		this.guessedLetters= [];
+		document.querySelector("#incorrectLetters").innerHTML = "";
+		const keyboardKeys = document.querySelectorAll(".key");
+		for (const keyboardKey of keyboardKeys) {
+			keyboardKey.style.visibility = "initial";
+		}
+		fetch(playerApiUrl + "numwords")
+		.then(response => response.json())
+		.then(data => {
+			console.log(data.length);
+			this.numWords = data.length;
+			this.wordIndex = this.getRndInteger(0, data.length);
+			console.log("Word Index: ", this.wordIndex);
+
+			fetch(playerApiUrl + "wordlength/" + this.wordIndex)
+			.then(response => response.json())
+			.then(data => {
+				this.randWordLength = data.length;
+				console.log("Random Word Length: ", this.randWordLength);
+				document.querySelector("#displayWord").innerHTML = "";
+				for(let i = 0; i < this.randWordLength; i++) {
+					document.querySelector("#displayWord").innerHTML += "_";
+				}
+			});
+		});
+		
+		this.updateView();
 
 	}
 
@@ -189,12 +233,47 @@ rhit.PlayerController = class {
 		console.log(`You pressed the ${keyValue} key`);
 
 		// TODO: Add your code here.
+		this.guessedLetters.push(keyValue);
+		console.log(this.guessedLetters);
+		this.updateView();
 
 	}
 
 	updateView() {
 		console.log(`TODO: Update the view.`);
 		// TODO: Add your code here.
+		let word = document.querySelector("#displayWord").innerHTML;
+		document.querySelector("#incorrectLetters").innerHTML = "";
+		const keyboardKeys = document.querySelectorAll(".key");
+		for (const keyboardKey of keyboardKeys) { 
+			for(let i = 0; i < this.guessedLetters.length; i++) {
+				if(keyboardKey.dataset.key == this.guessedLetters[i]) {
+					keyboardKey.style.visibility = "hidden";
+				} 
+			}
+		};
+
+		for(let i = 0; i < this.guessedLetters.length; i++) {
+			fetch(playerApiUrl + `guess/${this.wordIndex}/${this.guessedLetters[i]}`)
+			.then(response => response.json())
+			.then(data => {
+				if(data.locations.length == 0) {
+					console.log("incorrect letter bozo.");
+					document.querySelector("#incorrectLetters").innerHTML += this.guessedLetters[i];
+				} else {
+					for(let j = 0; j < data.locations.length; j++) {
+						for(let k = 0; k < this.randWordLength; k++) {
+							if (k == data.locations[j]) {
+								word = this.replaceAt(word, k, this.guessedLetters[i]);
+								document.querySelector("#displayWord").innerHTML = word;
+
+							} 
+						}
+					}
+				}
+			});
+		}
+		
 
 
 		// Some hints to help you with updateView.

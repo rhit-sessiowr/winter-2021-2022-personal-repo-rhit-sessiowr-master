@@ -52,6 +52,22 @@ rhit.AdminController = class {
 		console.log(`TODO: Add the word ${word} to the backend`);
 
 		// TODO: Add your code here.
+		let data = {
+			"word": word
+		};
+		let entry = fetch(adminApiUrl + "add", {
+				method: "POST",
+				headers: {
+					"Content-Type": 'application/json'
+				},
+				body: JSON.stringify(data)
+			})
+			.then(data => {
+				document.querySelector("#createWordInput").value = "";
+			})
+			.catch((err) => {
+				console.log(err);
+			})
 
 	}
 
@@ -59,9 +75,18 @@ rhit.AdminController = class {
 		console.log(`TODO: Read all the words from the backend, then update the screen.`);
 
 		// TODO: Add your code here.
+		document.querySelector("#readAllOutput").innerHTML = "";
+		let allEntries = fetch(adminApiUrl + "words")
+			.then(response => response.json())
+			.then(data => {
+				for (let i = 0; i < data.words.length - 1; i++) {
+					document.querySelector("#readAllOutput").innerHTML += data.words[i] + ",";
+				}
+				document.querySelector("#readAllOutput").innerHTML += data.words[data.words.length - 1];
+			});
 
 		// Hint for something you will need later in the process (after backend call(s))
-		document.querySelector("#readAllOutput").innerHTML = "Results go here."
+		// document.querySelector("#readAllOutput").innerHTML = "";
 	}
 
 	readSingle(index) {
@@ -72,9 +97,14 @@ rhit.AdminController = class {
 		console.log(`TODO: Read the word for index ${index} from the backend, then update the screen.`);
 
 		// TODO: Add your code here.
+		let entry = fetch(adminApiUrl + "word/" + index)
+			.then(response => response.json())
+			.then(data => {
+				document.querySelector("#readSingleOutput").innerHTML = data.word;
+			});
 
 		// Hint for something you will need later in the process (after backend call(s))
-		document.querySelector("#readSingleOutput").innerHTML = "Result goes here"
+		// document.querySelector("#readSingleOutput").innerHTML = "Result goes here"
 	}
 
 	update(index, word) {
@@ -89,6 +119,25 @@ rhit.AdminController = class {
 		console.log(`TODO: Update the word ${word} at index ${index} on the backend.`);
 
 		// TODO: Add your code here.
+		let data = {
+			"word": word,
+			"index": index
+		};
+		fetch(adminApiUrl + 'word/' + index, {
+				method: "PUT",
+				headers: {
+					"Content-Type": 'application/json'
+				},
+				body: JSON.stringify(data)
+			})
+			.then(data => {
+				document.querySelector("#updateIndexInput").value = "";
+				document.querySelector("#updateWordInput").value = "";
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+
 
 	}
 
@@ -100,7 +149,14 @@ rhit.AdminController = class {
 		console.log(`TODO: Delete the word at index ${index} from the backend.`);
 
 		// TODO: Add your code here.
-
+		fetch(adminApiUrl + 'word/' + index, {
+			method: "DELETE"
+		}).then(data => {
+			document.querySelector("#deleteIndexInput").value = "";
+		})
+		.catch((err) => {
+			console.log(err);
+		});
 	}
 }
 

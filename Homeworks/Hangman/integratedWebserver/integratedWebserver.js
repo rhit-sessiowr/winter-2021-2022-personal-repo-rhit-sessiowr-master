@@ -47,6 +47,16 @@ function saveToServer(data) {
 
 // TODO: Add your code here.
 
+app.post("/api/admin/add", function (req, res) {
+    let word = req.body.word;
+    let index = data.push(word);
+    saveToServer(data);
+    res.send({"word": word, "index": index});
+    res.end();
+
+
+})
+
 
 /**
  * Read all	- Get all words
@@ -59,6 +69,11 @@ function saveToServer(data) {
 
 // TODO: Add your code here.
 
+app.get("/api/admin/words", function (req,res) {
+    res.send({"words": data, "length": data.length});
+    res.end(); 
+})
+
 
 /**
  *  Read one - Get a single word at index
@@ -70,6 +85,12 @@ function saveToServer(data) {
  */
 
 // TODO: Add your code here.
+app.get("/api/admin/word/:id", function (req, res) {
+    let id = parseInt(req.params.id);
+    let result = data[id];
+    res.send({"word": result, "index": id});
+    res.end();
+});
 
 
 /**
@@ -82,6 +103,14 @@ function saveToServer(data) {
  */
 
 // TODO: Add your code here.
+app.put("/api/admin/word/:id", function(req, res) {
+    let id = parseInt(req.params.id);
+    let word = req.body.word;
+    data[id] = word;
+    saveToServer(data);
+    res.send({"word":word, "index": id});
+    res.end();
+});
 
 
 /**
@@ -94,7 +123,13 @@ function saveToServer(data) {
  */
 
 // TODO: Add your code here.
-
+app.delete("/api/admin/word/:id", function(req, res) {
+    let id = parseInt(req.params.id);
+    data.splice(id, 1);
+    saveToServer(data);
+    res.send({ "index": id});
+    res.end();
+});
 
 
 

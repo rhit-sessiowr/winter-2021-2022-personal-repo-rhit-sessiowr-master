@@ -120,7 +120,7 @@ rhit.FbMovieQuotesManager = class {
 			.catch((error) => {
 				console.error("Error adding document: ", error);
 			});
-	}
+	} 
 	beginListening(changeListener) {
 		this._unsubscribe = this._ref.orderBy(rhit.FB_KEY_LAST_TOUCHED, "desc").limit(50).onSnapshot((querySnapshot) => {
 

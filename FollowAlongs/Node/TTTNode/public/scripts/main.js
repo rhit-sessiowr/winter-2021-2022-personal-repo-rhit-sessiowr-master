@@ -47,19 +47,15 @@ rhit.PageController = class {
 			const boardString = this.game.boardString;
 			console.log("computer takes a turn bozo Board: ", boardString);
 
-			// fetch(`/api/getmove/${boardString}`).then((res) => {
-			// 	console.log(res);
-			// 	return res.json();
-			// }).then((data) => {
-			// 	console.log(data);
-			// });
-
-
-			fetch(`http://localhost:5001/sessiowr-cloudfunctions/us-central1/api/getmove/${boardString}`).then(res => res.json()).then(data => {
-				console.log(data.move);
-				this.game.pressedButtonAtIndex(data.move);
-				this.updateView();
+			fetch(`/api/getmove/${boardString}`).then((res) => {
+				console.log(res);
+				return res.json();
+			}).then((data) => {
+				console.log(data);
 			});
+
+
+			
 		}
 
 

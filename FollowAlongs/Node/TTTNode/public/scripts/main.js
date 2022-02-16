@@ -55,7 +55,7 @@ rhit.PageController = class {
 			// });
 
 
-			fetch(`/api/getmove/${boardString}`).then(res => res.json()).then(data => {
+			fetch(`http://localhost:5001/sessiowr-cloudfunctions/us-central1/api/getmove/${boardString}`).then(res => res.json()).then(data => {
 				console.log(data.move);
 				this.game.pressedButtonAtIndex(data.move);
 				this.updateView();

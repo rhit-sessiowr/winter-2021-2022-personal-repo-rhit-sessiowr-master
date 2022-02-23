@@ -9,21 +9,16 @@
 /** namespace. */
 var rhit = rhit || {};
 
-/** globals */
-rhit.variableName = "";
-
-/** function and class syntax examples */
-rhit.functionName = function () {
-	/** function body */
-};
-
-rhit.ClassName = class {
+rhit.ShuffleController = class {
 	constructor() {
-
-	}
-
-	methodName() {
-
+		document.querySelector("#moveButton").onclick = (event) => {
+			let fromIndex = document.querySelector("#fromIndex").value;
+			let toIndex = document.querySelector("#toIndex").value;
+			console.log(`Move the weekdays! From index: ${fromIndex} to: ${toIndex}`);
+		}
+		document.querySelector("#resetButton").onclick = (event) => {
+			console.log("reset the days. use the setdays api.");
+		}
 	}
 }
 
@@ -31,6 +26,7 @@ rhit.ClassName = class {
 /** function and class syntax examples */
 rhit.main = function () {
 	console.log("Ready");
+	new rhit.ShuffleController();
 };
 
 rhit.main();

@@ -65,5 +65,19 @@ app.put("/api/move/:fromindex/:toindex", function (req, res) {
     res.end();
 });
 
+/**
+ *  Set days - Set the entire list of days using a POST body that is a JSON array.
+ *    method:                    POST
+ *    path:                      /api/setdays
+ *    expected request body:     JSON object, for example {"days": ["Saturday","Sunday","Friday","Thursday","Wednesday","Tuesday","Monday"]}
+ *    side effects:              saves the new array into db.json 
+ *    response: ["Saturday","Sunday","Friday","Thursday","Wednesday","Tuesday","Monday"]
+ */
+app.post("/api/setdays", function(req,res) {
+    data = req.body.days;
+    res.send(req.body.days);
+    res.end();
+})
+
 
 app.listen(3000);

@@ -40,7 +40,10 @@ function saveToServer(data) {
  *   side effects:              none
  *   example response:          ["Saturday","Sunday","Friday","Thursday","Wednesday","Tuesday","Monday"]
  */
-
+app.get("/api/getdays", function (req, res) {
+    res.send(data);
+    res.end();
+})
 
 
 

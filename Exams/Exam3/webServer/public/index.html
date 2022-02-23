@@ -15,6 +15,35 @@
     <a class="navbar-brand" href="#">Week Day Shuffle</a>
   </nav>
   <div id="mainPage" class="container page-container">
+    <div id="forms" class="row justify-content-center">
+      <div class="col-6 form-group">
+        <label for="#fromIndex" class="bmd-label-floating">From Index</label>
+        <input type="number" class="form-control" id="fromIndex">
+      </div>
+      <div class="col-6 form-group">
+        <label for="#toIndex" class="bmd-label-floating">To Index</label>
+        <input type="number" class="form-control" id="toIndex">
+      </div>
+    </div>
+    <div id="buttons" class="row justify-content-center">
+      <div class="col-6">
+        <button type="button" id="moveButton" class="btn btn-block btn-outline-primary">Move</button>
+      </div>
+      <div class="col-6">
+        <button type="button" id="resetButton" class="btn btn-block btn-outline-primary">Reset</button>
+      </div>
+    </div>
+
+    <div id="weekdays" class="justify-content-center text-center">
+      <h1 id="index0">0. Sunday</h1>
+      <h1 id="index1">1. Monday</h1>
+      <h1 id="index2">2. Tuesday</h1>
+      <h1 id="index3">3. Wednesday</h1>
+      <h1 id="index4">4. Thursday</h1>
+      <h1 id="index5">5. Friday</h1>
+      <h1 id="index6">6. Saturday</h1>        
+    </div>
+    
 
 
   </div>

@@ -32,6 +32,16 @@ function saveToServer(data) {
     })
 }
 
+/**
+ * Get Days	- Gets the array of week days in order
+ *   method:                    GET
+ *   path:                      /api/getdays
+ *   expected request body:     none
+ *   side effects:              none
+ *   example response:          ["Saturday","Sunday","Friday","Thursday","Wednesday","Tuesday","Monday"]
+ */
+
+
 
 
 
